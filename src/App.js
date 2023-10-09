@@ -1,20 +1,16 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { createContext, useState } from 'react';
-import Main from './pages/inedx';
+import Main from './pages/main';
 
-const router = createBrowserRouter([{ path: '/index', element: <Main /> }]);
+const router = createBrowserRouter([{ path: '/main', element: <Main /> }]);
 
 export const UserContext = createContext();
 
-const App = () => {
-  // 전역에서 사용할 변수
-  const [accessToken, setAccessToken] = useState(null);
-  return (
-    <UserContext.Provider value={{ accessToken, setAccessToken }}>
-      <RouterProvider router={router} />
-    </UserContext.Provider>
-  );
-};
+function App(){
+  return(
+    <RouterProvider router={router}/>
+  )
+}
 
 export default App;
