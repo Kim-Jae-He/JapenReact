@@ -28,7 +28,22 @@ import {
   SearchInput,
 } from '../styles/header.styles';
 
-const HeaderPages = () => {
+const HeaderPages = () => {          
+  
+  //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
+  const HeaderColorOver = (e) => {        //텍스트에 마우스가 올라갈때
+    e.target.style.color = 'rgb(121, 190, 245)';
+  };
+
+  const HeaderColorOut = (e) => {         //텍스트에 마우스가 내려갈때
+    e.target.style.color = 'black';
+  };
+
+  const LoginJoinCon = (e, color) => {
+    e.target.style.backgroundColor = color;
+  }
+
+
   return (
     <>
       <Body>
@@ -51,10 +66,12 @@ const HeaderPages = () => {
             </SearchContainer>
             <HeaderBigContainer>
               <HeaderSmallContainer>
-                <LoginContainer>
+                <LoginContainer onMouseOver={(e) => {LoginJoinCon(e, 'rgb(222, 226, 230)')}}
+                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
                   <LoginButton type="button">로그인</LoginButton>
                 </LoginContainer>
-                <LoginJoinContainer>
+                <LoginJoinContainer onMouseOver={(e) => {LoginJoinCon(e, '#F5FBFF')}}
+                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
                   <JoinButton type="button">회원가입</JoinButton>
                 </LoginJoinContainer>
               </HeaderSmallContainer>
@@ -62,7 +79,7 @@ const HeaderPages = () => {
           </NavContainer>
           <BottomHeaderContainer>
             <BottomHeaderContainerInner>
-              <MainpageContainer>
+              <MainpageContainer onMouseOver={HeaderColorOver} onMouseOut={HeaderColorOut}>
                 <ItemContainer>
                   <Href href="/">
                     <ItemContainer1Title>항공권</ItemContainer1Title>
