@@ -3,6 +3,16 @@ import styled from '@emotion/styled';
 export const Body = styled.div`
   background-color: white;
   font-family: 'Work Sans', sans-serif;
+  ont-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #343a40;
+    letter-spacing: -0.2px;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    vertical-align: baseline;
+    border: 0;
 `;
 
 export const Mainheader = styled.div`
@@ -81,11 +91,14 @@ export const SearchContainerInput2 = styled.div`
 `;
 
 export const SearchContainerInputImg = styled.div`
-  display: inline-block;
-  border: 0px;
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
+     position: absolute;
+    left: 18px;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex: 10px 10px 48px;
+    justify-content: center;
 `;
 
 export const SearchInput = styled.input`
@@ -187,6 +200,7 @@ export const ItemContainer = styled.div`
   position: relative;
   display: flex;
   margin: 0px 14px;
+  color: black;
 `;
 
 export const Href = styled.a`
@@ -197,11 +211,12 @@ export const Href = styled.a`
 export const ItemContainerTitle = styled.span`
   font-size: 16px;
   font-weight: 600;
-  color: rgb(73, 80, 86);
+  color: black;
 `;
 
 export const ItemContainer1 = styled.div`
   position: relative;
+  color: black;
 `;
 
 export const ItemContainer1Container = styled.button`
@@ -224,6 +239,7 @@ export const ItemContainer1Title = styled.span`
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.4px;
+  color: black;
 `;
 
 export const LoginJoinContainer = styled.div`
