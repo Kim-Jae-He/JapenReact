@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
-import Header from '../components/header';
+import FooterPage from '../components/footer';
+import HeaderPages from '../components/header';
 
 const Main = () => {
   return (
     <>
-      <Header></Header>
+      <HeaderPages></HeaderPages>
+      <FooterPage></FooterPage>
     </>
   );
 };

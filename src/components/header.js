@@ -1,110 +1,148 @@
-import React from 'react';
+import { More } from '@mui/icons-material';
+import {
+  Body,
+  BottomHeaderContainer,
+  BottomHeaderContainerInner,
+  ButtonLogo,
+  HeaderBigContainer,
+  HeaderSmallContainer,
+  Href,
+  ImgLogo,
+  ItemContainer,
+  ItemContainer1,
+  ItemContainer1Container,
+  ItemContainer1Title,
+  JoinButton,
+  LoginButton,
+  LoginContainer,
+  LoginJoinContainer,
+  LogoContainer,
+  Mainheader,
+  MainpageContainer,
+  NavContainer,
+  SearchContainer,
+  SearchContainerInput,
+  SearchContainerInput2,
+  SearchContainerInputImg,
+  SearchContainerInputImgValue,
+  SearchInput,
+} from '../styles/header.styles';
 
-const Header = () => {
+const HeaderPages = () => {          
+  
+  //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
+  const HeaderColorOver = (e) => {        //텍스트에 마우스가 올라갈때
+    e.target.style.color = 'rgb(121, 190, 245)';
+  };
+
+  const HeaderColorOut = (e) => {         //텍스트에 마우스가 내려갈때
+    e.target.style.color = 'black';
+  };
+
+  const LoginJoinCon = (e, color) => {
+    e.target.style.backgroundColor = color;
+  }
+
+
   return (
-    <header id="main-header">
-      <nav className="nav-container">
-        <div className="logo-container">
-          <button type="button" className="button-logo">
-            <img className="img-logo" src="../images/logo.svg" alt="myrealtrip" />
-          </button>
-        </div>
-        <div className="search-container">
-          <div className="search-container-input">
-            <div className="search-container-input2">
-              <div className="search-container-input-img">
-                <img
-                  className="search-container-input-img-value"
-                  src="../images/read.png"
-                  alt="icon"
-                />
-              </div>
-              <input
-                type="text"
-                className="search-input"
-                autoComplete="off"
-                placeholder="도시를 검색해보세요"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="header-big-container">
-          <div className="header-small-container">
-            <div className="login-container">
-              <button type="button" className="login-button">
-                로그인
-              </button>
-            </div>
-            <div className="login-join-container">
-              <button type="button" className="join-button">
-                회원가입
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <div className="bottom-header-container">
-        <nav className="bottom-header-container-inner">
-          <div className="mainpage-container">
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">항공권</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">해외숙소</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">국내숙소</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">투어·티켓</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">패키지</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">여행자보험</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">키즈</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">국내 렌터카</span>
-              </a>
-            </div>
-            <div className="item-container">
-              <a href="/" className="href">
-                <span className="item-container-title">유심·이심</span>
-              </a>
-            </div>
-            <div className="item-container1">
-              <button type="button" className="item-container1-container">
-                <span className="item-container1-title">더보기</span>
-                <img src="../images/more.png" className="moreimg" alt="더보기" />
-              </button>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <>
+      <Body>
+        <Mainheader>
+          <NavContainer>
+            <LogoContainer>
+              <ButtonLogo type="button">
+                <ImgLogo src="/images/logo.svg" />
+              </ButtonLogo>
+            </LogoContainer>
+            <SearchContainer>
+              <SearchContainerInput>
+                <SearchContainerInput2>
+                  <SearchContainerInputImg>
+                    <SearchContainerInputImgValue src="/images/read.png" />
+                  </SearchContainerInputImg>
+                  <SearchInput type="text" autoComplete="off" placeholder="도시를 검색해보세요" />
+                </SearchContainerInput2>
+              </SearchContainerInput>
+            </SearchContainer>
+            <HeaderBigContainer>
+              <HeaderSmallContainer>
+                <LoginContainer onMouseOver={(e) => {LoginJoinCon(e, 'rgb(222, 226, 230)')}}
+                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
+                  <LoginButton type="button">로그인</LoginButton>
+                </LoginContainer>
+                <LoginJoinContainer onMouseOver={(e) => {LoginJoinCon(e, '#F5FBFF')}}
+                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
+                  <JoinButton type="button">회원가입</JoinButton>
+                </LoginJoinContainer>
+              </HeaderSmallContainer>
+            </HeaderBigContainer>
+          </NavContainer>
+          <BottomHeaderContainer>
+            <BottomHeaderContainerInner>
+              <MainpageContainer onMouseOver={HeaderColorOver} onMouseOut={HeaderColorOut}>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>항공권</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>해외숙소</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>국내숙소</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>투어·티켓</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>패키지</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>여행자보험</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>키즈</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>국내렌터카</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>항공권</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer>
+                  <Href href="/">
+                    <ItemContainer1Title>유심·이심</ItemContainer1Title>
+                  </Href>
+                </ItemContainer>
+                <ItemContainer1>
+                  <ItemContainer1Container type="button">
+                    <ItemContainer1Title>더보기</ItemContainer1Title>
+                    <More src="/images/more.png"></More>
+                  </ItemContainer1Container>
+                </ItemContainer1>
+              </MainpageContainer>
+            </BottomHeaderContainerInner>
+          </BottomHeaderContainer>
+        </Mainheader>
+      </Body>
+    </>
   );
 };
 
-
-
-
-export default Header;
+export default HeaderPages;
