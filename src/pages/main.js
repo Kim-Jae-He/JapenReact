@@ -1,14 +1,13 @@
-import styled from '@emotion/styled';
-import FooterPage from '../components/footer';
-import HeaderPages from '../components/header';
+const { MainCom, ModCon } = require("../styles/main.styles")
 
 const Main = () => {
-  return (
-    <>
-      <HeaderPages></HeaderPages>
-      <FooterPage></FooterPage>
-    </>
-  );
-};
-
-export default Main;
+    return(
+        <>
+            <MainCom>
+                <ModCon>
+                    
+                </ModCon>
+            </MainCom>
+        </>
+    )
+}

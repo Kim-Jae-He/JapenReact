@@ -3,10 +3,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { createContext, useState } from 'react';
 import Main from './pages/main';
 import HeaderPages from './components/header';
+import IndexPage from './pages';
 
 const router = createBrowserRouter([
   { path: '/main', element: <HeaderPages /> },
-  { path: '/', element: <Main /> },
+  { path: '/', element: <IndexPage /> },
 ]);
 
 export const UserContext = createContext();
