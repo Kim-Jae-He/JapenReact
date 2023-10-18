@@ -1,7 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
 import { createContext, useState } from 'react';
-import Main from './pages/main';
 import HeaderPages from './components/header';
 import IndexPage from './pages';
 
