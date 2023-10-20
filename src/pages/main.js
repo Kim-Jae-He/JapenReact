@@ -61,6 +61,38 @@ const MainPage = () => {
                       </JapanOsaka1>
                       <JapanOsaka1>
                         <Osakaimg src="https://lh3.googleusercontent.com/1QOz8nVGoJZgMGVjhL1A7Ag6xK8JN2O2a1gx16bRQxHx1E7v55ORqfmyUOaPlj7CgSo74Ct2Vv5bOTt7Orjue5FE-IU3EBB7LgYk7eJ1mxWZrQ3wWC6gy4EdU182-QLJK4eTi18-P9Q=w1280-h850-p-k" />
+                        <OsakaTravel></OsakaTravel>
+                        <OsakaContent>
+                          <OsakaContentA>
+                            <OsakaName>후쿠오카</OsakaName>
+                          </OsakaContentA>
+                          <OsakaInfo>200여 개의 여행 상품</OsakaInfo>
+                          <OsakaLink>둘러보기</OsakaLink>
+                        </OsakaContent>
+                      </JapanOsaka1>
+                      <JapanOsaka1>
+                        <Osakaimg src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/20/00/a2000730/img/basic/a2000730_main.jpg?20220805104001&q=80" />
+                        <OsakaTravel></OsakaTravel>
+                        <OsakaContent>
+                          <OsakaContentA>
+                            <OsakaName>교토</OsakaName>
+                          </OsakaContentA>
+                          <OsakaInfo>100여 개의 여행 상품</OsakaInfo>
+                          <OsakaLink>둘러보기</OsakaLink>
+                        </OsakaContent>
+                      </JapanOsaka1>
+                      <JapanOsaka1>
+                        <Osakaimg src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_3000,h_2000,f_auto/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/k1ox6xmsuddpmxfgegjg/%EC%98%A4%ED%82%A4%EB%82%98%EC%99%80%EC%B8%84%EB%9D%BC%EC%8B%9C%EB%A7%88%EB%B2%84%EC%8A%A4%EC%9D%BC%EC%9D%BC%ED%88%AC%EC%96%B4(%EB%82%98%ED%95%98%EB%98%90%EB%8A%94%EC%B0%A8%ED%83%84%EC%B6%9C%EB%B0%9C)-%ED%81%B4%EB%A3%A9Klook%ED%95%9C%EA%B5%AD.jpg" />
+                        <OsakaTravel></OsakaTravel>
+                        <OsakaContent>
+                          <OsakaContentA>
+                            <OsakaName>오키나와</OsakaName>
+                          </OsakaContentA>
+                          <OsakaInfo>50여 개의 여행 상품</OsakaInfo>
+                          <OsakaLink>둘러보기</OsakaLink>
+                        </OsakaContent>
+                      </JapanOsaka1>
+                      <JapanOsaka1>
                       </JapanOsaka1>
                     </ListWrap>
                   </ListIncon>
