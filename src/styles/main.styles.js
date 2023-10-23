@@ -301,6 +301,8 @@ export const NextCarousel = styled.button`
   transition: 0.2s;
   width: 40px;
   z-index: 10;
+  top: calc(50%);
+  right: -10px;
 `;
 
 export const SecondContainer = styled.div`
