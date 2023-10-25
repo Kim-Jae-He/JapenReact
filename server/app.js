@@ -76,7 +76,7 @@ app.get('/api/employees', (req, res) => {
 // 사원 한명 추가
 app.post('/api/employees', () => {});
 
-
+app.post('/api/employees', () => {});
 
 // 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
 app.get('/api/loggedInId', (req, res) => {
