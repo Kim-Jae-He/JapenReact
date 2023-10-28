@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import styled from '@emotion/styled/types/base';
 
 export const HeaderCon = styled.div`
   position: fixed;
