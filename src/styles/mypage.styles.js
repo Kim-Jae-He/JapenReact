@@ -8,11 +8,10 @@ import styled from '@emotion/styled';
   box-sizing: border-box;
 } */
 
-export const Bot = styled.div`
-main {
+export const Main = styled.div`
   display: block;
   position: relative;
-}
+`;
 
 // a {
 //   text-decoration: none;
@@ -23,11 +22,10 @@ main {
 //   touch-action: manipulation;
 //   background-color: transparent;
 // }
-export const Bot = styled.div`
-.traveler {
+export const Traveler  = styled.main`
   background-color: #fff;
   font-size: 0;
-}
+`;
 
 export const Bot = styled.div`
 .profile-container {
