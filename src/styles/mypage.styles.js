@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 
-*,
 /* ::before,
 ::after {
   font-family: 'SF Pro KR', 'SF Pro Display', 'SF Pro Icons', -apple-system, BlinkMacSystemFont,
@@ -22,44 +21,39 @@ export const Main = styled.div`
 //   touch-action: manipulation;
 //   background-color: transparent;
 // }
-export const Traveler  = styled.main`
+export const Traveler = styled.main`
   background-color: #fff;
   font-size: 0;
 `;
 
-export const Bot = styled.div`
-.profile-container {
+export const ProfileContainer = styled.div`
   margin: 0 auto;
   padding: 50px 0 102px;
   position: relative;
   width: 1060px;
-}
+`;
 
-export const Bot = styled.div`
-.headline {
+export const Headline = styled.div`
   color: #495056;
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 17px;
-}
+`;
 
-export const Bot = styled.div`
-.leftbar {
+export const Leftbar = styled.div`
   color: #343a40;
   display: inline-block;
   float: left;
   margin-right: 18px;
   width: 250px;
-}
+`;
 
-export const Bot = styled.div`
-.rightbar {
+export const Rightbar = styled.div`
   display: inline-block;
   width: 790px;
-}
+`;
 
-export const Bot = styled.div`
-.left-con {
+export const LeftCon = styled.div`
   background-color: #fff;
   border-radius: 4px;
   border: solid 1px #dee2e6;
@@ -67,63 +61,57 @@ export const Bot = styled.div`
   height: 250px;
   padding: 42px 10px 30px;
   text-align: center;
-}
-export const Bot = styled.div`
-.pro-img {
+`;
+
+export const ProImg = styled.img`
   border: 2px solid #e9ecef;
   border-radius: 50%;
   vertical-align: middle;
   text-align: center;
-}
-export const Bot = styled.div`
-.username {
+`;
+
+export const Username = styled.div`
   font-size: 18px;
   font-weight: 600;
   margin: 11px 0 23px;
-}
+`;
 
-export const Bot = styled.div`
-.text-ms {
+export const Textms = styled.div`
   font-size: 14px;
   font-weight: 500;
-}
+`;
 
-export const Bot = styled.div`
-.left-icon {
+export const LeftIcon = styled.div`
   margin-bottom: 2px;
   margin-right: 2px;
   display: inline-block;
   border-width: 0;
   vertical-align: middle;
   border: 0;
-}
+`;
 
-export const Bot = styled.div`
-.left-procon {
+export const LeftProcon = styled.div`
   background-color: #fff;
   border-radius: 4px;
   border: solid 1px #dee2e6;
   margin-bottom: 8px;
   padding: 13px 20px;
-}
+`;
 
-export const Bot = styled.div`
-.procon-item {
+export const ProconItem = styled.div`
   display: block;
   font-weight: 500;
   margin: 7px 0;
-}
+`;
 
-export const Bot = styled.div`
-.heart {
+export const Heart = styled.div`
   font-size: 11px;
   display: inline-block;
   text-align: left;
   width: 40%;
-}
+`;
 
-export const Bot = styled.div`
-.heart-count {
+export const HeartCount = styled.div`
   font-size: 14px;
   color: #2b96ed;
   display: inline-block;
@@ -131,15 +119,13 @@ export const Bot = styled.div`
   letter-spacing: 0;
   text-align: right;
   width: 60%;
-}
+`;
 
-export const Bot = styled.div`
-.love {
+export const Love = styled.img`
   vertical-align: text-bottom;
-}
+`;
 
-export const Bot = styled.div`
-.memberbox {
+export const Memberbox = styled.main`
   background-color: #fff;
   border-radius: 4px;
   border: solid 1px #dee2e6;
@@ -147,72 +133,61 @@ export const Bot = styled.div`
   color: #495056;
   font-weight: 500;
   position: relative;
-}
+`;
 
-export const Bot = styled.div`
-.mycontent {
+export const Mycontent = styled.div`
   padding-bottom: 20px;
   font-size: 14px;
   padding: 50px 40px 40px;
   position: relative;
-}
+`;
 
-export const Bot = styled.div`
-.proimg {
+export const Proimg = styled.div`
   margin-bottom: 50px;
   position: relative;
   text-align: center;
-}
+`;
 
-export const Bot = styled.div`
-.proimg-img {
+export const ProimgImg = styled.img`
   border-radius: 49px;
-}
+`;
 
-export const Bot = styled.div`
-.right-top-form {
+export const RightTopForm = styled.form`
   display: inline-block;
-}
+`;
 
-export const Bot = styled.div`
-.text {
+export const Text = styled.div`
   font-size: 16px;
   font-weight: 500;
   margin-top: 15px;
-}
+`;
 
-export const Bot = styled.div`
-.membercon {
+export const Membercon = styled.div`
   margin-bottom: 10px;
-}
+`;
 
-export const Bot = styled.div`
-.form-group {
+export const FormGroup = styled.div`
   min-height: 45px;
   margin-bottom: 10px;
   line-height: 27px;
   position: relative;
-}
+`;
 
-export const Bot = styled.div`
-.title {
+export const Title = styled.div`
   line-height: 45px;
   font-weight: 600;
   position: absolute;
   width: 122px;
-}
+`;
 
-export const Bot = styled.div`
-.input-con {
+export const InputCon = styled.div`
   line-height: 45px;
   width: 100%;
   display: inline-block;
   padding-left: 122px;
-}
+`;
 
-
-export const Bot = styled.div`
-.input-wrap {
+export const InputWrap = styled.input`
   background-color: #fff;
   font-weight: 500;
   height: 40px;
@@ -227,34 +202,30 @@ export const Bot = styled.div`
   width: 100%;
   line-height: 1.5;
   background-image: none;
-}
+`;
 
-export const Bot = styled.div`
-.right-form-btn {
+export const RightFormBtn = styled.button`
   border-top: 1px solid #dee2e6;
   display: block;
   padding-top: 24px;
   margin-top: 24px;
   text-align: center;
-}
+`;
 
-export const Bot = styled.div`
-.right-form-btn-con {
+export const RightFormBtnCon = styled.div`
   margin: 0 -4px;
   overflow: visible;
   padding-bottom: 20px;
-}
+`;
 
-export const Bot = styled.div`
-.form-btn {
+export const FormBtn = styled.div`
   display: inline-block;
   float: left;
   padding: 0 4px;
   width: 50%;
-}
+`;
 
-export const Bot = styled.div`
-.btn-exit {
+export const BtnExit = styled.button`
   background-color: #e9ecef;
   color: #495056 !important;
   width: 100%;
@@ -269,10 +240,9 @@ export const Bot = styled.div`
   font-weight: 700;
   padding: 0;
   text-align: center;
-}
+`;
 
-export const Bot = styled.div`
-.btn-check {
+export const BtnCheck = styled.button`
   background-color: #51abf3;
   color: #fff !important;
   width: 100%;
@@ -287,25 +257,22 @@ export const Bot = styled.div`
   font-weight: 700;
   padding: 0;
   text-align: center;
-}
+`;
 
-export const Bot = styled.div`
-.remove-con {
+export const RemoveCon = styled.div`
   margin-top: 25px;
   text-align: center;
-}
+`;
 
-export const Bot = styled.div`
-.remove-text {
+export const RemoveText = styled.div`
   font-size: 12px;
   color: #848c94;
   cursor: pointer;
   display: inline-block;
   text-decoration: underline;
-}
+`;
 
-export const Bot = styled.div`
-.delete-con {
+export const DeleteCon = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -320,4 +287,4 @@ export const Bot = styled.div`
   visibility: visible;
   opacity: 1;
   transform: translate(-50%, -50%);
-}
+`;
