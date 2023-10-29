@@ -1,265 +1,40 @@
 import styled from "@emotion/styled";
 
 
-export const  = styled.div`
-#wrap {
-    background-color: white;
-    font-family: 'Work Sans', sans-serif;
-    margin: 0 auto;
-  }
-  
-  export const  = styled.div`
-  .main-header {
-    position: relative;
-    width: 100%;
-    height: auto;
-    z-index: auto;
-  }
-  export const  = styled.div`
-  .nav-container {
-    display: flex;
-    position: relative;
+// export const  = styled.div`
+// #wrap {
+//     background-color: white;
+//     font-family: 'Work Sans', sans-serif;
+//     margin: 0 auto;
+//     `;
+
+  export const  OfferMain  = styled.main`
     -webkit-box-align: center;
     align-items: center;
     margin: 0px auto;
     width: 100%;
     height: 72px;
     max-width: 1060px;
-  }
-  export const  = styled.div`
-  .logo-container {
-    box-sizing: border-box;
-    letter-spacing: 0px;
-    overflow-anchor: none;
-  }
-  export const  = styled.div`
-  .button-logo {
-    margin: 0px;
-    padding: 0px;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-  }
-  export const  = styled.div`
-  .img-logo {
-    width: 166px;
-    height: 48px;
-  }
-  export const  = styled.div`
-  .search-container {
-    position: relative;
-    width: 340px;
-    height: 48px;
-    margin-left: 24px;
-  }
-  export const  = styled.div`
-  .search-container-input {
-    position: relative;
-    margin-right: 14px;
-  }
-  export const  = styled.div`
-  .search-container-input2 {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    height: 48px;
-    border: none;
-    border-radius: 4px;
-  }
-  export const  = styled.div`
-  .search-container-input-img {
-    position: absolute;
-    left: 18px;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-    align-items: center;
-    flex: 10px 10px 48px;
-    justify-content: center;
-  }
-  export const  = styled.div`
-  .search-container-input-img-value {
-    display: inline-block;
-    border: 0px;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-  }
-  export const  = styled.div`
-  .search-input {
-    appearance: none;
-    width: 100%;
-    height: 100%;
-    background: rgb(245, 246, 247);
-    border: none;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: left;
-    padding: 0px 16px 0px 48px;
-    color: rgb(73, 80, 86);
-    outline: 0px;
-    margin: 0;
-    line-height: inherit;
-    border-radius: 0;
-    box-sizing: border-box;
-    overflow-anchor: none;
-  }
-  export const  = styled.div`
-  .header-big-container {
-    display: flex;
-    flex-grow: 1;
-    height: 100%;
-    -webkit-box-align: center;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  export const  = styled.div`
-  .header-small-container {
-    display: flex;
-    height: 36px;
-    position: relative;
-    margin-right: 0px;
-  }
-  export const  = styled.div`
-  .login-container {
-    position: relative;
-  }
-  export const  = styled.div`
-  .login-button {
-    margin: 0px;
-    appearance: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 100%;
-    padding: 8px 12px;
-    border-radius: 3px;
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
-    color: rgb(102, 109, 117);
-    text-decoration: none;
-  }
-  export const  = styled.div`
-  .join-button {
-    margin: 0px 0px 0px 12px;
-    appearance: none;
-    outline: none;
-    border: none;
-    background: none;
-    cursor: pointer;
-    height: 100%;
-    padding: 0px 32px;
-    font-size: 15px;
-    font-weight: bold;
-    color: rgb(43, 150, 237);
-    border: 1px solid rgb(167, 212, 249);
-  }
-  export const  = styled.div`
-  .bottom-header-container {
-    width: 100%;
-    border-bottom: 1px solid rgb(222, 226, 230);
-  }
-  export const  = styled.div`
-  .bottom-header-container-inner {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    max-width: 1060px;
-    margin: 0px auto;
-  }
-  export const  = styled.div`
-  .mainpage-container {
-    display: flex;
-  }
-  export const  = styled.div`
-  .item-container {
-    position: relative;
-    display: flex;
-    margin: 0px 14px;
-  }
-  export const  = styled.div`
-  .href {
-    text-decoration: none;
-    cursor: pointer;
-  }
-  export const  = styled.div`
-  .item-container-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: rgb(73, 80, 86);
-  }
-  export const  = styled.div`
-  .item-container1 {
-    position: relative;
-  }
-  export const  = styled.div`
-  .item-container1-container {
-    margin: 0px 0px 0px 14px;
-    padding: 0px;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 96px;
-    color: var(--gray-700);
-  }
-  export const  = styled.div`
-  .item-container1-title {
-    margin-right: 2px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-  }
-  export const  = styled.div`
-  .moreimg {
-    display: inline-block;
-    border: 0px;
-    width: 20px;
-    height: 20px;
-  }
-  export const  = styled.div`
-  main {
-    -webkit-box-align: center;
-    align-items: center;
-    margin: 0px auto;
-    width: 100%;
-    height: 72px;
-    max-width: 1060px;
-  }
-  export const  = styled.div`
-  #main-container {
+  `;
+
+  export const   MainContainer  = styled.div`
+
     /* text-align: center; */
     padding-top: 48px;
     /* margin-left: 10px; */
     height: 8815px;
     /* background-color: yellow; */
-  }
-  export const  = styled.div`
-  #main-container {
-  }
-  export const  = styled.div`
-  #main-wrapper {
+  `;
+
+ 
+  export const MainWrapper   = styled.div`
     display: flex;
-  }
-  export const  = styled.div`
-  #Location-container > a {
-    text-decoration: none;
+  `;
+
+  export const LocationContainer  = styled.div`
+
+    .a{
+      text-decoration: none;
     color: #848c94;
     font-size: 14px;
     font-weight: 700;
@@ -267,9 +42,10 @@ export const  = styled.div`
     line-height: 1.14;
     vertical-align: middle;
     display: flex;
-  }
-  export const  = styled.div`
-  #location-wrapper {
+    }
+  `;
+
+  export  LocationWrapper  = styled.div`
     text-decoration: none;
     color: #848c94;
     font-size: 14px;
@@ -279,9 +55,9 @@ export const  = styled.div`
     vertical-align: middle;
     display: flex;
     /* margin-left: 90px; */
-  }
-  export const  = styled.div`
-  #text1 {
+  `;
+
+  export const Text1  = styled.h1`
     color: #343a40;
     font-size: 32px;
     font-weight: 700;
@@ -290,13 +66,13 @@ export const  = styled.div`
     margin: 0;
     /* margin-left: 90px; */
     margin-top: 20px;
-  }
-  export const  = styled.div`
-  #star-container {
+  `;
+
+  export const StarContainer  = styled.div`
     display: flex;
-  }
-  export const  = styled.div`
-  #star {
+  `;
+
+  export const Star  = styled.div`
     line-height: 1;
     /* margin-left: 90px; */
     margin-top: 10px;
@@ -305,10 +81,9 @@ export const  = styled.div`
     border-style: none;
     padding-bottom: 20px;
     background-color: white;
-    /* */
-  }
-  export const  = styled.div`
-  #star-container > #text2 {
+    
+  `;
+  export const Text2   = styled.span`
     color: #343a40;
     font-size: 14px;
     font-weight: 600;
@@ -316,44 +91,45 @@ export const  = styled.div`
     margin-left: 5px;
     vertical-align: middle;
     margin-top: 17px;
-  }
-  export const  = styled.div`
-  #text2 > #btn2 {
-    border: 0;
-    background-color: transparent;
-  }
-  export const  = styled.div`
-  #star > #text3 {
+
+ `;
+
+ 
+  export const Text3   = styled.span`
     color: #848c94;
     font-size: 14px;
     margin-left: 2px;
     margin-top: 17px;
-  }
-  export const  = styled.div`
-  #star > #arrow {
+  `
+
+  export const  Arrow  = styled.img`
+
     /* vertical-align: middle; */
     margin-top: 20px;
-  }
-  export const  = styled.div`
-  #header-tag {
+  `;
+
+  export const  HeaderTag  = styled.ul`
+ 
     list-style: none;
     border-bottom: 1px solid #e9ecef;
     border-top: 1px solid #e9ecef;
     margin: 8px 0 -1px;
     padding: 17px 0;
     display: flex;
-  }
-  export const  = styled.div`
-  #tag1 {
+  `;
+
+  export const   Tag1   = styled.li`
     margin-right: 5px;
     vertical-align: -6px;
     color: #495056;
-  }
-  export const  = styled.div`
-  #tag2 {
+  `;
+  
+  export const  Tag2 = styled.img`
+
     border-width: 0;
     vertical-align: middle;
-  }
+  `;
+  
   export const  = styled.div`
   #sub-container {
     border-bottom: 1px solid #e9ecef;
