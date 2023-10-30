@@ -101,7 +101,7 @@ export const FormCon = styled.form`
 `;
 
 export const LoginContainer = styled.div`
-  padding: 72px 0px 0px;
+  padding: 200px 0px 0px;
 `;
 
 export const LoginContainerboxMedia = styled.div`
@@ -123,7 +123,7 @@ export const Checkid = styled.div`
   color: rgb(52, 58, 64);
 `;
 
-export const Inputid1 = styled.div`
+export const Inputid1 = styled.input`
   width: unset;
   margin-bottom: 0px;
   border-radius: 2px;
@@ -153,7 +153,7 @@ export const Inputpw = styled.div`
   flex-direction: column;
 `;
 
-export const Inputpw1 = styled.div`
+export const Inputpw1 = styled.input`
   width: unset;
   margin-bottom: 0px;
   border-radius: 2px;
