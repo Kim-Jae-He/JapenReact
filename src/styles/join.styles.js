@@ -211,6 +211,7 @@ export const CompleteButtonCheck = styled.button`
   text-align: center;
   font-weight: 700;
   font-size: 18px;
+  margin-top: 20px;
   margin-left: 8px;
   background-color: #2b96ed;
   color: #fff;
@@ -219,7 +220,7 @@ export const CompleteButtonCheck = styled.button`
   box-shadow: none;
 `;
 
-export const Footer = styled.footer`
+export const Footeer = styled.footer`
   position: fixed;
   bottom: 0px;
   right: 0px;

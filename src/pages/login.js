@@ -1,4 +1,4 @@
-import { Padding } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 import { LoginButton, LoginContainer } from '../styles/header.styles';
 import {
   ALogo,
@@ -7,7 +7,6 @@ import {
   Checkid,
   Checkpw,
   FormCon,
-  FormFo,
   HeaderButton,
   HeaderCon,
   HeaderContainer,
@@ -24,19 +23,29 @@ import {
 } from '../styles/login.styles';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const onJoinClick = () => {
+    navigate('/join' , {replace:true})
+  }
+
+  const onHomeClick = () => {
+    navigate('/' , {replace:true})
+  }
+
   return (
     <>
       <HeaderCon>
         <HeaderContainer>
           <HeaderLogo></HeaderLogo>
-          <ALogo>
+          <ALogo onClick={onHomeClick}>
             <LogoImage src="/images/logo.svg"></LogoImage>
           </ALogo>
           <a href="../pages/join.js">
             <LogoSpan />
           </a>
           <HeaderButton>
-            <ButtonColor>
+            <ButtonColor onClick={onJoinClick}>
               <Buttoncss>
                 <SpanButton>회원가입</SpanButton>
               </Buttoncss>

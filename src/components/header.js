@@ -27,6 +27,7 @@ import {
   SearchContainerInputImgValue,
   SearchInput,
 } from '../styles/header.styles';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderPages = () => {          
   
@@ -43,6 +44,19 @@ const HeaderPages = () => {
     e.target.style.backgroundColor = color;
   }
 
+  const navigate = useNavigate();
+
+  const onHomeClick = () => {
+    navigate('/' , {replace:true})
+  }
+
+  const onLoginClick = () => {
+    navigate('/login' , {replace:true})
+  }
+
+  const onJoinClick = () => {
+    navigate('/join' , {replace:true})
+  }
 
   return (
     <>
@@ -50,7 +64,7 @@ const HeaderPages = () => {
         <Mainheader>
           <NavContainer>
             <LogoContainer>
-              <ButtonLogo type="button">
+              <ButtonLogo onClick={onHomeClick} type="button">
                 <ImgLogo src="/images/logo.svg" />
               </ButtonLogo>
             </LogoContainer>
@@ -68,11 +82,11 @@ const HeaderPages = () => {
               <HeaderSmallContainer>
                 <LoginContainer onMouseOver={(e) => {LoginJoinCon(e, 'rgb(222, 226, 230)')}}
                  onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
-                  <LoginButton type="button">로그인</LoginButton>
+                  <LoginButton onClick={onLoginClick} type="button">로그인</LoginButton>
                 </LoginContainer>
                 <LoginJoinContainer onMouseOver={(e) => {LoginJoinCon(e, '#F5FBFF')}}
                  onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
-                  <JoinButton type="button">회원가입</JoinButton>
+                  <JoinButton onClick={onJoinClick}  type="button">회원가입</JoinButton>
                 </LoginJoinContainer>
               </HeaderSmallContainer>
             </HeaderBigContainer>

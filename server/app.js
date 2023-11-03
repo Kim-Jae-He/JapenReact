@@ -36,6 +36,11 @@ const port = 3002;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/api', (req, res) => {
+  res.send('김제희!');
+});
+
+
 app.listen(port, () => {
   console.log(`express 서버 실행됨! 포트:${port}`);
 });
