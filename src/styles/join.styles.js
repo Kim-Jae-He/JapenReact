@@ -48,7 +48,7 @@ export const JoinSectionContainer = styled.div`
   text-align: center;
 `;
 
-export const Joinlayout = styled.div`
+export const Joinlayout = styled.form`
   width: 880px;
   margin: 0px auto;
   text-align: left;
@@ -230,3 +230,9 @@ export const Footeer = styled.footer`
   background: white;
   text-align: right;
 `;
+
+export const ErrMsg = styled.p`
+  color: red;
+  font-size: var(--font-xs);
+  padding-left: 10px`
+  ;
