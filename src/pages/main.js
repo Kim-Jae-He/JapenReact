@@ -66,7 +66,7 @@ const MainPage = () => {
       infinite={settings.infinite}
       speed={settings.speed}
       slidesToShow={settings.slidesToShow}
-      slidesToScroll={settings.slidesToScroll} >
+      slidesToScroll={settings.slidesToScroll} 
                 <ListCon>
                         <JapanOsaka1>
                           <Osakaimg src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Neon_signs_at_night%2C_24th_October_2014.JPG/310px-Neon_signs_at_night%2C_24th_October_2014.JPG" />
