@@ -182,9 +182,6 @@ export const OsakaContent = styled.div`
   width: 100%;
 `;
 
-
-
-
 export const OsakaContentA = styled.div`
   align-items: center;
   color: #fff;
@@ -221,25 +218,25 @@ export const OsakaInfo = styled.span`
 
 export const OsakaLink = styled.a`
   text-decoration: none;
-    border: none;
-    bottom: 95px;
-    box-shadow: 0 0 0 1px rgba(33, 37, 41, 0.08);
-    left: 24px;
-    position: absolute;
-    padding-top: 1px;
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: 3;
-    background-color: #fff;
-    color: #495056;
-    font-size: 14px;
-    height: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 700;
-    text-align: center;
+  border: none;
+  bottom: 95px;
+  box-shadow: 0 0 0 1px rgba(33, 37, 41, 0.08);
+  left: 24px;
+  position: absolute;
+  padding-top: 1px;
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 3;
+  background-color: #fff;
+  color: #495056;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  text-align: center;
 `;
 
 export const Button = styled.button`
@@ -303,6 +300,7 @@ export const NextCarousel = styled.button`
   z-index: 10;
   top: calc(50%);
   right: -10px;
+  cursor: pointer;
 `;
 
 export const SecondContainer = styled.div`
