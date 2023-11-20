@@ -138,6 +138,7 @@ export const JoinIdDown = styled.div`
 
 export const JoinPassword = styled.div`
   margin-bottom: 8px;
+  margin-top: 16px;
   font-size: 15px;
   line-height: 138%;
   font-weight: 600;
@@ -186,7 +187,7 @@ export const JoinPasswordcheck = styled.div`
 
 export const JoinPasswordcheckInput = styled.input`
   width: 420px;
-  margin-bottom: 0px;
+  margin-bottom: 16px;
   border-radius: 4px;
   border: 1px solid #ffffff;
   box-sizing: border-box;

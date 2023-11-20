@@ -350,9 +350,13 @@ export const SecondNone = styled.div`
 `;
 
 export const SlideBannerA = styled.a`
-  position: relative;
-  display: block;
-  height: 100%;
+  width: 1060px;
+  margin: 0 auto 44px;
+`;
+
+export const IMGIMG = styled.img`
+  width: 1060px;
+  margin: 0 auto 44px;
 `;
 
 export const SlideBannerImg = styled.img`

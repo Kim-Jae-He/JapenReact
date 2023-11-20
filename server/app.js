@@ -31,6 +31,10 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT,
 });
 
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/api', (req, res) => {
   res.send('김제희!');
 });
@@ -57,20 +61,16 @@ app.get('/api', (req, res) => {
 //   return res.send('성공입니다');
 // });
 
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: true }));
-
 // 모든 사원 조회
 app.get('/api/login', async (req, res) => {
   const { userId, userPw } = req.body;
 
+  // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
   try {
-    // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
     let sql = ` SELECT user_id, user_password FROM
-      tbl_user WHERE user_id = ?`;
+      tbl_user WHERE user_id =?`;
 
-    const [rows, fields] = await pool.query(sql, [user_id]);
+    const [rows, fields] = await pool.query(sql, [userId]);
 
     console.log(rows);
     if (rows.length === 0) {
@@ -110,6 +110,48 @@ app.get('/api/jsonwebtokentest', (req, res) => {
 
   res.json('응답끝');
 });
+
+// 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
+app.get('/api/loggedInEmail', (req, res) => {
+  // 리액트로부터 전달받은 토큰이 정상적인지 확인하고
+  // 정상적이지 않으면 오류로 응답
+  // 정상적이면 email주소로 응답
+  // 토큰은 요청 header 의 Authorization에 Bearer .....
+  // console.log(req.headers.authorization)
+  // 문자열
+  const token = req.headers.authorization.replace('Bearer ', '');
+  // console.log(token);
+  // token은 로그인 당시 발급 받은 토큰
+
+  try {
+    let result = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(result);
+
+    res.send(result.email);
+  } catch (err) {
+    console.log(err);
+    res.status(403).json('오류발생!');
+  }
+});
+
+
+app.post('/api/joins' , async(req, res) => {
+  console.log(req.body);
+  const sql = `INSERT INTO tbl_user 
+  (user_id, user_password, user_name, user_phone)
+  values (?,?,?,?)
+   `;
+   let {userName, userId, userPassword, userPhone} = req.body;
+
+   let enPw = bcrypt.hashSync(password, 10);
+
+   try{
+    let [result, fields] = pool.query(sql, [userName, userId, enPw, userPhone]);
+
+   }
+
+})
+
 
 app.listen(port, () => {
   console.log(`express 서버 실행됨! 포트:${port}`);
