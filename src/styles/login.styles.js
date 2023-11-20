@@ -168,9 +168,8 @@ export const Inputpw1 = styled.input`
 `;
 
 export const Loginbutton1 = styled.button`
-  cursor: not-allowed;
-  pointer-events: all !important;
-  background-color: #a7d4f9;
+  cursor: pointer;
+  background-color: rgb(43, 150, 230, 0.8)  ;
   color: white;
   width: 100%;
   height: 48px;
@@ -182,3 +181,9 @@ export const Loginbutton1 = styled.button`
   box-shadow: none;
   margin-top: 30px;
 `;
+
+export const ErrMsg = styled.p`
+  color: red;
+  font-size: 12px;
+  padding-left: 10px;
+  `;

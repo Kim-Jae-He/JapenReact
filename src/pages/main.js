@@ -1,6 +1,5 @@
 //import { useNavigate } from 'react-router-dom';
 import NoticePage from './notice';
-import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -39,15 +38,15 @@ const {
 } = require('../styles/main.styles');
 
 const MainPage = () => {
-  const SimpleSlider = () => {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
-  };
+  // const SimpleSlider = () => {
+  //   const settings = {
+  //     dots: true,
+  //     infinite: true,
+  //     speed: 500,
+  //     slidesToShow: 1,
+  //     slidesToScroll: 1,
+  //   };
+  // };
 
   return (
     <>
@@ -62,12 +61,10 @@ const MainPage = () => {
             </MainheaderCon>
             <MainheaderCon>
               <ListHead1>
-              <Slider dots={settings.dots}
-      infinite={settings.infinite}
-      speed={settings.speed}
-      slidesToShow={settings.slidesToShow}
-      slidesToScroll={settings.slidesToScroll} 
-                <ListCon>
+                <Slider>
+                  <ListCon>
+                    <ListIncon>
+                      <ListWrap>
                         <JapanOsaka1>
                           <Osakaimg src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Neon_signs_at_night%2C_24th_October_2014.JPG/310px-Neon_signs_at_night%2C_24th_October_2014.JPG" />
                           <OsakaTravel></OsakaTravel>
@@ -126,15 +123,14 @@ const MainPage = () => {
                         <JapanOsaka1></JapanOsaka1>
                       </ListWrap>
                       <ListWrapspan></ListWrapspan>
-                      <ListWrap>
-                  </ListIncon>
-                  {/* 오른쪽버튼 */}
-                  <p>현재 슬라이드: {ImageSlider.currentSlide + 1}</p>
-                  <NextCarousel type="button" tabIndex="0" role="button" aria-disabled="false">
-                    <NextnextImg src="/images/next.png"></NextnextImg>
-                  </NextCarousel>
-                </ListCon>
-                 </Slider>
+                    </ListIncon>
+                    {/* 오른쪽버튼 */}
+
+                    <NextCarousel type="button" tabIndex="0" role="button" aria-disabled="false">
+                      <NextnextImg src="/images/next.png"></NextnextImg>
+                    </NextCarousel>
+                  </ListCon>
+                </Slider>
               </ListHead1>
             </MainheaderCon>
           </Mainheader>

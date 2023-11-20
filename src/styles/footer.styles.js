@@ -9,23 +9,28 @@ export const Bot = styled.div`
   overflow-anchor: none;
   color: #343a40;
   line-height: 1.5;
+  margin: 0 auto;
+  width: 1060px;
 `;
 
 export const Foot = styled.footer`
   position: relative;
   background-color: rgb(255, 255, 255);
   border-top: 1px solid rgb(233, 236, 239);
+  margin: 0 auto;
 `;
 
 export const Infoot = styled.div`
   max-width: 1060px;
   margin: 0px auto;
   padding: 40px 0px;
+  
 `;
 
 export const Topfoot = styled.div`
   display: flex;
   padding-bottom: 32px;
+  
 `;
 
 export const TopfootIn = styled.div`

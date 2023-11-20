@@ -12,8 +12,6 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config({ path: '../.env.project' });
 
-
-
 const app = express();
 const port = 3002;
 
@@ -37,86 +35,67 @@ app.get('/api', (req, res) => {
   res.send('김제희!');
 });
 
-const loginList = [
-  {
-    id: 'aaa',
-    password: '1234',
-    phone: '01012345678',
-  },
-];
+// const loginList = [
+//   {
+//     id: 'aaa',
+//     password: '1234',
+//     phone: '01012345678',
+//   },
+// ];
 
-app.get('/api/loginup', (req, res) => {
-  res.json(loginList);
-});
+// app.get('/api/loginup', (req, res) => {
+//   res.json(loginList);
+// });
 
-app.get('/api/loginup', (req, res) => {
-  const { id, password, phone } = req.body;
-  loginList.push({
-    id,
-    password,
-    phone,
-  });
-  return res.send('성공입니다');
-});
+// app.get('/api/loginup', (req, res) => {
+//   const { id, password, phone } = req.body;
+//   loginList.push({
+//     id,
+//     password,
+//     phone,
+//   });
+//   return res.send('성공입니다');
+// });
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
 // 모든 사원 조회
-app.get('/api/employees', (req, res) => {
-  // mysql에서 employees 테이블 모든 행,컬럼 조회
-  pool.query('SELECT * FROM employees', (err, rows, fields) => {
-    console.log('ddd');
-    console.log(err);
-    res.json(rows);
-  });
-});
-
-// 사원 한명 추가
-app.post('/api/employees', () => {});
-
-
-// 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
-app.get('/api/loggedInId', (req, res) => {
-  // 리액트로부터 전달받은 토큰이 정상적인지 확인하고
-  // 정상적이지 않으면 오류로 응답
-  // 정상적이면 email주소로 응답
-  // 토큰은 요청 header 의 Authorization에 Bearer .....
-  // console.log(req.headers.authorization)
-  // 문자열
-  const token = req.headers.authorization.replace('Bearer ', '');
-  // console.log(token);
-  // token은 로그인 당시 발급 받은 토큰
+app.get('/api/login', async (req, res) => {
+  const { userId, userPw } = req.body;
 
   try {
-    let result = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(result);
+    // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
+    let sql = ` SELECT user_id, user_password FROM
+      tbl_user WHERE user_id = ?`;
 
-    res.send(result.email);
+    const [rows, fields] = await pool.query(sql, [user_id]);
+
+    console.log(rows);
+    if (rows.length === 0) {
+      res.status(404).json('로그인실패입니다');
+      return;
+    }
+    if (!bcrypt.compareSync(userPw, rows[0].pw)) {
+      // 이메일은 맞췄지만 비밀번호는 틀렸을때
+      res.status(404).json('로그인 실패!');
+      return;
+    }
+
+    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    console.log(accessToken);
+    res.json({ accessToken });
   } catch (err) {
-    console.log(err);
-    res.status(403).json('오류발생!');
-  }
-});
-
-app.get('/api/users/:userId', async (req, res) => {
-  const userId = req.prams.userId;
-
-  try {
-    let [rows, fields] = await pool.query(
-      `SELECT idx, user_id, password, user_name, phone from tbl_user 
-    WHERE user_id=?`,
-      [userId]
-    );
-    res.json(row[0]);
-  } catch (err) {
-    res.status(500).json('서버오류 발생');
+    res.status(500).json('mysql에서 오류 발생');
   }
 });
 
 app.get('/api/jsonwebtokentest', (req, res) => {
-  let myToken = jwt.sign({ email: 'abc@naver.com' }, 'tokenpw', {
+  let myToken = jwt.sign({ userId: 'kimj' }, 'tokenpw', {
     expiresIn: '0.1s',
   });
 

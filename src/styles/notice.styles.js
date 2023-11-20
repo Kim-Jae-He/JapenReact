@@ -11,6 +11,7 @@ export const NoticeBoard = styled.form`
   font: inherit;
   vertical-align: baseline;
   display: flex;
+  justify-content: center;
 `;
 
 export const MainNotice = styled.div`
