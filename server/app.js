@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 // require( 'dotenv').config({path:'../.env.local'});
 
 const dotenv = require('dotenv');
-dotenv.config({ path: '../.env.project' });
+dotenv.config({ path: '../.env.local' });
 
 const app = express();
 const port = 3002;
@@ -37,6 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', (req, res) => {
   res.send('김제희!');
+});
+
+// 모든 사원 조회
+app.get('/api/all', (req, res) => {
+  // mysql에서 employees 테이블 모든 행,컬럼 조회
+  pool.query('SELECT * FROM tbl_user', (err, rows, fields) => {
+    console.log('ddd');
+    console.log(err);
+    res.json(rows);
+  });
 });
 
 // const loginList = [
