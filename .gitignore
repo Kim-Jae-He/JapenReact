@@ -8,12 +8,15 @@
 # testing
 /coverage
 
+#database
+/d
+
 # production
 /build
 
 # misc
 .DS_Store
-.env.local
+.env.project
 .env.development.local
 .env.test.local
 .env.production.local

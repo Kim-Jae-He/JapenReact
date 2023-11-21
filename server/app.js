@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 // require( 'dotenv').config({path:'../.env.local'});
 
 const dotenv = require('dotenv');
-dotenv.config({ path: '../.env.local' });
+dotenv.config({ path: '../.env.project' });
 
 const app = express();
 const port = 3002;
@@ -36,16 +36,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', (req, res) => {
+  console.log('성공입니다.');
   res.send('김제희!');
 });
 
 // 모든 사원 조회
 app.get('/api/all', (req, res) => {
   // mysql에서 employees 테이블 모든 행,컬럼 조회
+
   pool.query('SELECT * FROM tbl_user', (err, rows, fields) => {
-    console.log('ddd');
-    console.log(err);
-    res.json(rows);
+    res.send(rows);
   });
 });
 
@@ -80,45 +80,19 @@ app.get('/api/login', async (req, res) => {
     let sql = ` SELECT user_id, user_password FROM
       tbl_user WHERE user_id =?`;
 
-    const [rows, fields] = await pool.query(sql, [userId]);
+    const [rows, fields] = await pool.query(sql, [userId, userPw]);
 
     console.log(rows);
     if (rows.length === 0) {
       res.status(404).json('로그인실패입니다');
       return;
     }
-    if (!bcrypt.compareSync(userPw, rows[0].pw)) {
-      // 이메일은 맞췄지만 비밀번호는 틀렸을때
-      res.status(404).json('로그인 실패!');
-      return;
-    }
 
-    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    console.log(accessToken);
-    res.json({ accessToken });
+    res.json('상공이야');
   } catch (err) {
+    console.log(err);
     res.status(500).json('mysql에서 오류 발생');
   }
-});
-
-app.get('/api/jsonwebtokentest', (req, res) => {
-  let myToken = jwt.sign({ userId: 'kimj' }, 'tokenpw', {
-    expiresIn: '0.1s',
-  });
-
-  console.log(myToken);
-
-  // let decoded = jwt.decode(myToken );
-  // console.log(decoded);
-
-  let verify = jwt.verify(myToken, 'tokenpw');
-
-  console.log(verify);
-
-  res.json('응답끝');
 });
 
 // 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
