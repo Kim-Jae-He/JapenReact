@@ -8,8 +8,8 @@ const JoinPage = () => {
   //경로이동
   const navigate = useNavigate();
   //사용자가 입력한값 SET
-  const [username, setUserName] = useState(' ');
-  const [userid, setUserId] = useState(' ');
+  const [username, setUserName] = useState('');
+  const [userid, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [phone, setPhone] = useState('');
@@ -29,7 +29,7 @@ const JoinPage = () => {
     const userNameText = e.target.value;
 
     if(userNameText === ''){
-      setUserNameErrMsg('이름은 필수 입력값입니다.');
+      setUserNameErrMsg('이름은 필수 입력값입니다');
     }else{
       setUserNameErrMsg('');
     } 
@@ -41,7 +41,7 @@ const JoinPage = () => {
     const userIdText = e.target.value;
 
     if(userIdText === ''){
-      setUserIdErrMsg('아이디는 필수 입력값입니다.');
+      setUserIdErrMsg('아이디는 필수 입력값입니다');
     }else{
       setUserIdErrMsg('');
     } 
@@ -53,7 +53,7 @@ const JoinPage = () => {
     setPassword(passwordText);
 
     if(passwordText === ''){
-      setPasswordErrMsg('비밀번호는 필수 입력 값입니다.');
+      setPasswordErrMsg('비밀번호는 필수 입력 값입니다');
     }else if(passwordText.length < 4){
       setPasswordErrMsg('최소 4글자 이상으로 작성해주세요');
     }else{
@@ -153,7 +153,7 @@ const JoinPage = () => {
     }
 
     if(check){
-
+        alert('정상입력됨~');
       console.log(e.target);
     
 
@@ -229,28 +229,26 @@ const onModalClick = ()=>{
     </Sidebar>
   {/* 오른쪽 사이드바 */}
     <JoinSectionContainer>
-        <Joinlayout onSubmit={submitHandler} method="POST" action="/api/users">
+        <Joinlayout onSubmit={submitHandler} method="POST" action="/api/joins">
             <Jointitlecontainer>
                 <JoinTitle1>계정만들기</JoinTitle1>
                 <JoinTitle2>로그인 계정을 생성해주세요</JoinTitle2>
             </Jointitlecontainer>
             <JoinName>이름</JoinName>
-            <JoinNameInput onChange={userNameInputHandler} name="username" onChange={userNameInputHandler} id="joininput1" type="text" placeholder="홍길동" autoComplete="new-password" />
-              {/* <ErrMsg>{userNameErrMsg}</ErrMsg> */}
+            <JoinNameInput onChange={userNameInputHandler} onChange={userNameInputHandler}  type="text" placeholder="홍길동" autoComplete="new-password" />
           <JoinNameDown>{userNameErrMsg}</JoinNameDown>
           <JoinName>아아디</JoinName>
-             <JoinNameInput onChange={userIdInputHandler} id="joininput1" type="text" placeholder="홍길동" autoComplete="new-password" />
-            {/* <ErrMsg>{userIdErrMsg}</ErrMsg>  */}
+             <JoinNameInput onChange={userIdInputHandler}  type="text" placeholder="myrealtrip" autoComplete="new-password" />
+             <JoinNameDown>{userIdErrMsg}</JoinNameDown>
           <JoinPassword>비밀번호</JoinPassword>
-          <JoinPasswordInput onChange={passwordInputHandler} id="join-password-input" type="password" placeholder="비밀번호를 입력해 주세요"  />
-           {/* <ErrMsg>{passwordErrMsg}</ErrMsg> */}
+          <JoinPasswordInput onChange={passwordInputHandler}  type="password" placeholder="비밀번호를 입력해 주세요"  />
+          <JoinNameDown>{passwordErrMsg}</JoinNameDown>
           <JoinPasswordcheck>비밀번호 확인</JoinPasswordcheck>
-          <JoinPasswordcheckInput onChange={passwordCheckInputHandler}  id="joininput4" type="password" placeholder="입력하신 비밀번호를 확인해주세요"  />
-           {/* <ErrMsg>{passwordCheckErrMsg}</ErrMsg> */}
+          <JoinPasswordcheckInput onChange={passwordCheckInputHandler}   type="password" placeholder="입력하신 비밀번호를 확인해주세요"  />
+          <JoinNameDown>{passwordCheckErrMsg}</JoinNameDown>
           <JoinName>전화번호</JoinName>
-            <JoinNameInput id="joininput1" type="text" placeholder="01012345678" autoComplete="new-password" />
-           {/* <ErrMsg>{phoneErrMsg}</ErrMsg> */}
-          <JoinNameDown> - 를 제외하고 입력해수제요</JoinNameDown>
+            <JoinNameInput onChange={phoneInputHandler} type="text" placeholder="ㅡ 를 제외하고 입력해수제요" autoComplete="new-password" />
+            <JoinNameDown>{phoneErrMsg}</JoinNameDown>
         </Joinlayout>
         <div isOpen={isOpen}>
         <CompleteButtonCheck >완료</CompleteButtonCheck>

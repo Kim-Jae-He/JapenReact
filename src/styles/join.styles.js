@@ -100,7 +100,7 @@ export const JoinNameInput = styled.input`
 export const JoinNameDown = styled.div`
   margin-top: 8px;
   margin-bottom: 16px;
-  color: gray;
+  color: red;
   font-weight: 400;
   font-size: 13px;
   line-height: 138%;

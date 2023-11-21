@@ -134,24 +134,51 @@ app.get('/api/loggedInEmail', (req, res) => {
   }
 });
 
+app.get('/api/joins/:userid', async (req, res) => {
+  // console.log(req.params);
+  const userid = req.params.userid;
+  let sql = `
+    SELECT user_name, user_id, user_password, user_phone
+    from tbl_user
+    WHERE user_id = ?
+  `;
+  try {
+    let [rows, fields] = await pool.query(sql, [userid]);
 
-app.post('/api/joins' , async(req, res) => {
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json('서버 오류 발생');
+  }
+});
+
+app.post('/api/joins', async (req, res) => {
   console.log(req.body);
   const sql = `INSERT INTO tbl_user 
   (user_id, user_password, user_name, user_phone)
-  values (?,?,?,?)
+  values (?, ?, ?, ?)
    `;
-   let {userName, userId, userPassword, userPhone} = req.body;
+  let { username, userid, password, phone } = req.body;
 
-   let enPw = bcrypt.hashSync(password, 10);
+  let enPw = bcrypt.hashSync(password, 10);
 
-   try{
-    let [result, fields] = pool.query(sql, [userName, userId, enPw, userPhone]);
-
-   }
-
-})
-
+  try {
+    let [result, fields] = pool.query(sql, [username, userid, enPw, phone]);
+    console.log('result:', result);
+    console.log('fields:', fields);
+    res.json('성공이야~');
+  } catch (err) {
+    if (err.errno === 1406) {
+      // 아이디가 컬럼의 최대 허용 용량을 벗어났다 1406
+      res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
+    } else if (err.errno === 1062) {
+      // 아이디가 중복되었다 1062
+      res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
+    } else {
+      // 그외
+      res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`express 서버 실행됨! 포트:${port}`);

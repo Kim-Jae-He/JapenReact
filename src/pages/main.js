@@ -8,6 +8,7 @@ import { Margin } from '@mui/icons-material';
 const { Mainheader } = require('../styles/header.styles');
 const {
   MainCom,
+  TestCss,
   ModCon,
   Mainsell,
   MainheaderCon,
@@ -135,7 +136,7 @@ const MainPage = () => {
             </MainheaderCon>
           </Mainheader>
           {/* 메인2번째 슬라이드 */}
-          <Slider style={{width:'1060px', margin:'0 auto 44px'}} {...settings}>
+          <Slider style={{width:'1060px', margin:'0 auto 44px'}} {...settings} >
             <SlideBannerA>
               <SlideBannerImg src="https://d2ur7st6jjikze.cloudfront.net/cms/4078_original_1692161584.jpg?1692161584" />
             </SlideBannerA>
