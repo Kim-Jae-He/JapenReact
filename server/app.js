@@ -1,5 +1,21 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
+
+const bodyParser = require('body-parser');
+
+// 데이터베이스 이전설정
+// const fs = require('fs');
+// const data = fs.readFileSync('./database.json');
+// const consf = JSON.parse(data);
+// const mysql = require('mysql');
+
+// const connection = mysql.createConnection({
+//   host: conf.host,
+//   user: conf.user,
+//   password: conf.password,
+//   port: conf.port,
+//   database: conf.database,
+// });
+// connection.connect();
 
 const mysql = require('mysql2/promise');
 
@@ -16,13 +32,6 @@ const app = express();
 const port = 3002;
 
 // mysql 설정
-
-// console.log(process.env.DB_HOST);
-// console.log(process.env.DB_USER);
-// console.log(process.env.DB_DATABASE);
-// console.log(process.env.DB_PASSWORD);
-// console.log(process.env.DB_PORT);
-
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -41,14 +50,16 @@ app.get('/api', (req, res) => {
 });
 
 // 모든 사원 조회
-app.get('/api/all', (req, res) => {
+app.get('/api/all', async (req, res) => {
   // mysql에서 employees 테이블 모든 행,컬럼 조회
 
-  pool.query('SELECT * FROM tbl_user', (err, rows, fields) => {
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM tbl_user', (err, rows, fields));
     res.send(rows);
-  });
+  } catch (err) {
+    res.status(500).json('서버오류입니다');
+  }
 });
-
 // const loginList = [
 //   {
 //     id: 'aaa',
@@ -71,8 +82,25 @@ app.get('/api/all', (req, res) => {
 //   return res.send('성공입니다');
 // });
 
+app.get('/api/jsonwebtokentest', (req, res) => {
+  let myToken = jwt.sign({ userId: 'kimj' }, 'tokenpw', {
+    expiresIn: '0.1s',
+  });
+
+  console.log(myToken);
+
+  // let decoded = jwt.decode(myToken );
+  // console.log(decoded);
+
+  let verify = jwt.verify(myToken, 'tokenpw');
+
+  console.log(verify);
+
+  res.json('응답끝');
+});
+
 // 모든 사원 조회
-app.get('/api/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { userId, userPw } = req.body;
 
   // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
@@ -80,7 +108,7 @@ app.get('/api/login', async (req, res) => {
     let sql = ` SELECT user_id, user_password FROM
       tbl_user WHERE user_id =?`;
 
-    const [rows, fields] = await pool.query(sql, [userId, userPw]);
+    const [rows, fields] = await pool.query(sql, [userId]);
 
     console.log(rows);
     if (rows.length === 0) {
@@ -88,10 +116,30 @@ app.get('/api/login', async (req, res) => {
       return;
     }
 
-    res.json('상공이야');
+    //     res.json('상공이야');
+    //   } catch (err) {
+    //     console.log(err);
+    //     res.status(500).json('mysql에서 오류 발생');
+    //   }
+    // });
+    if (!bcrypt.compareSync(userPw, rows[0].pw)) {
+      // 이메일은 맞췄지만 비밀번호는 틀렸을때
+      res.status(404).json('로그인 실패!');
+      return;
+    }
+
+    // 로그인이 성공 했다면
+    // jwt 토큰 만들기
+    // payload에는 {email:'로그인한사람이메일'}
+    // 1시간짜리 유효한 토큰으로 만들기
+    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+    console.log(accessToken);
+    // 만든 토큰을 객체에 담아서 리액트로 전달
+    res.json({ accessToken });
   } catch (err) {
-    console.log(err);
-    res.status(500).json('mysql에서 오류 발생');
+    res.status(500).json('mysql에서 오류발생');
   }
 });
 

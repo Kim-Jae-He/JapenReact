@@ -9,7 +9,7 @@
 /coverage
 
 #database
-/d
+/database.json
 
 # production
 /build
