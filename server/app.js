@@ -51,13 +51,14 @@ app.get('/api', (req, res) => {
 
 // 모든 사원 조회
 app.get('/api/all', async (req, res) => {
-  // mysql에서 employees 테이블 모든 행,컬럼 조회
-
   try {
-    const [rows, fields] = await pool.query('SELECT * FROM tbl_user', (err, rows, fields));
-    res.send(rows);
+    // mysql에서 employees 테이블 모든 행,컬럼 조회
+    const fields = await pool.query('SELECT * FROM tbl_user');
+    console.log(fields);
+    return res.json(fields);
   } catch (err) {
-    res.status(500).json('서버오류입니다');
+    console.error(err);
+    return res.json(err);
   }
 });
 // const loginList = [
