@@ -28,43 +28,49 @@ import {
   SearchInput,
 } from '../styles/header.styles';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-const HeaderPages = () => {          
-  
+const HeaderPages = () => {
+  const navigate = useNavigate();
+
   //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
-  const HeaderColorOver = (e) => {        //텍스트에 마우스가 올라갈때
+  const HeaderColorOver = (e) => {
+    //텍스트에 마우스가 올라갈때
     e.target.style.color = 'rgb(121, 190, 245)';
   };
 
-  const HeaderColorOut = (e) => {         //텍스트에 마우스가 내려갈때
+  const HeaderColorOut = (e) => {
+    //텍스트에 마우스가 내려갈때
     e.target.style.color = 'black';
   };
 
   const LoginJoinCon = (e, color) => {
     e.target.style.backgroundColor = color;
-  }
+  };
 
-  const navigate = useNavigate();
+  // 홈페이지,로그인,회원가입 클릭시 경로이동
+  const onButtonClick = (path) => {
+    navigate(path, { replace: true });
+  };
 
-  const onHomeClick = () => {
-    navigate('/' , {replace:true})
-  }
+  //로그인이 확인되면 로그아웃으로 글씨 변경
+  const LoginButton = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const onLoginClick = () => {
-    navigate('/login' , {replace:true})
-  }
+    const handleButtonClick = () => {
+      // 로그인 상태를 토글합니다.
+      setIsLoggedIn(!isLoggedIn);
 
-  const onJoinClick = () => {
-    navigate('/join' , {replace:true})
-  }
-
+      navigate('/login');
+    };
+  };
   return (
     <>
       <Body>
         <Mainheader>
           <NavContainer>
             <LogoContainer>
-              <ButtonLogo onClick={onHomeClick} type="button">
+              <ButtonLogo onClick={() => onButtonClick('/')} type="button">
                 <ImgLogo src="/images/logo.svg" />
               </ButtonLogo>
             </LogoContainer>
@@ -80,13 +86,29 @@ const HeaderPages = () => {
             </SearchContainer>
             <HeaderBigContainer>
               <HeaderSmallContainer>
-                <LoginContainer onMouseOver={(e) => {LoginJoinCon(e, 'rgb(222, 226, 230)')}}
-                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
-                  <LoginButton onClick={onLoginClick} type="button">로그인</LoginButton>
+                <LoginContainer
+                  onMouseOver={(e) => {
+                    LoginJoinCon(e, 'rgb(222, 226, 230)');
+                  }}
+                  onMouseOut={(e) => {
+                    LoginJoinCon(e, 'white');
+                  }}
+                >
+                  <LoginButton onClick={() => onButtonClick('/login')} type="button">
+                    {isLoggedIn ? '로그아웃' : '로그인'}
+                  </LoginButton>
                 </LoginContainer>
-                <LoginJoinContainer onMouseOver={(e) => {LoginJoinCon(e, '#F5FBFF')}}
-                 onMouseOut ={(e)=>{LoginJoinCon(e, 'white')}}>
-                  <JoinButton onClick={onJoinClick}  type="button">회원가입</JoinButton>
+                <LoginJoinContainer
+                  onMouseOver={(e) => {
+                    LoginJoinCon(e, '#F5FBFF');
+                  }}
+                  onMouseOut={(e) => {
+                    LoginJoinCon(e, 'white');
+                  }}
+                >
+                  <JoinButton onClick={() => onButtonClick('/join')} type="button">
+                    회원가입
+                  </JoinButton>
                 </LoginJoinContainer>
               </HeaderSmallContainer>
             </HeaderBigContainer>

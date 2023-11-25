@@ -45,7 +45,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', (req, res) => {
-  console.log('성공입니다.');
   res.send('김제희!');
 });
 
@@ -53,7 +52,7 @@ app.get('/api', (req, res) => {
 app.get('/api/all', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT * FROM tbl_user');
-    console.log(fields);
+    console.log(rows);
     res.json(rows);
   } catch (err) {
     console.error(err);
@@ -100,47 +99,30 @@ app.get('/api/jsonwebtokentest', (req, res) => {
   res.json('응답끝');
 });
 
-// 모든 사원 조회
+// 로그인 API
 app.post('/api/login', async (req, res) => {
   const { userId, userPw } = req.body;
 
   // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
   try {
-    let sql = ` SELECT user_id, user_password FROM
-      tbl_user WHERE user_id =?`;
+    let sql = `SELECT user_id, user_password FROM tbl_user WHERE user_id = ?`;
 
-    const [rows, fields] = await pool.query(sql, [userId]);
+    const [rows] = await pool.query(sql, [userId]);
 
     console.log(rows);
-    if (rows.length === 0) {
-      res.status(404).json('로그인실패입니다');
-      return;
-    }
-
-    //     res.json('상공이야');
-    //   } catch (err) {
-    //     console.log(err);
-    //     res.status(500).json('mysql에서 오류 발생');
-    //   }
-    // });
-    if (!bcrypt.compareSync(userPw, rows[0].pw)) {
-      // 이메일은 맞췄지만 비밀번호는 틀렸을때
-      res.status(404).json('로그인 실패!');
+    if (rows.length === 0 || rows[0].user_password !== userPw) {
+      // 사용자가 존재하지 않거나 비밀번호가 일치하지 않을 때
+      res.status(404).json({ error: '로그인 실패!' });
       return;
     }
 
     // 로그인이 성공 했다면
-    // jwt 토큰 만들기
-    // payload에는 {email:'로그인한사람이메일'}
-    // 1시간짜리 유효한 토큰으로 만들기
-    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-    console.log(accessToken);
-    // 만든 토큰을 객체에 담아서 리액트로 전달
-    res.json({ accessToken });
+    // 여기에서 추가적인 로직을 수행하거나 필요한 데이터를 응답으로 보낼 수 있습니다.
+
+    res.json({ success: true, message: '로그인 성공!' });
   } catch (err) {
-    res.status(500).json('mysql에서 오류발생');
+    console.error(err);
+    res.status(500).json({ error: 'mysql에서 오류 발생' });
   }
 });
 

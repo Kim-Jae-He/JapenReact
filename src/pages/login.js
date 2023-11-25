@@ -29,8 +29,8 @@ import { UserContext } from '../App';
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const [userid, setUserId] = useState('');
-  const [userpw, setUserPw] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
 
   const [idErr, setIdErr] = useState('');
   const [pwErr, setPwErr] = useState('');
@@ -67,17 +67,17 @@ const LoginPage = () => {
 
     let check = true;
 
-    if (userid === '') {
+    if (userId === '') {
       setIdErr('아이디를 입력해주세요');
       check = false;
     } else {
       setIdErr('');
     }
 
-    if (userpw === '') {
+    if (userPw === '') {
       setPwErr('비밀번호는 필수입니다');
       check = false;
-    } else if (userpw.length < 4) {
+    } else if (userPw.length < 4) {
       setPwErr('최소 4자 이상을 입력해주세요');
       check = false;
     } else {
@@ -86,18 +86,18 @@ const LoginPage = () => {
 
     if (check) {
       try {
-        let res = await axios.post('/api/login', { userid, userpw });
-        alert(res.data.accessToken);
-        localStorage.setItem('accessToken', res.data.accessToken);
-        setAccessToken(res.data.accessToken);
+        let res = await axios.post('/api/login', { userId, userPw });
+        if (res.data.success) {
+          alert('로그인 성공!');
 
-        navigate('/', { replace: false });
-      } catch (err) {
-        console.log(err);
-        if (err.response.status === 404) {
-          alert('아이디 또는 비밀번호를 입렵해주세요');
+          // 로그인 성공 시 홈페이지로 이동
+          window.location.href = '/';
+        } else {
+          alert('로그인 실패: ' + res.data.error);
         }
-        console.log('확인');
+      } catch (err) {
+        console.error(err);
+        // 에러 처리 로직...
       }
     }
   };
