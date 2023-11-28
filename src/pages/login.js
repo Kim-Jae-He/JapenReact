@@ -85,19 +85,22 @@ const LoginPage = () => {
     }
 
     if (check) {
+      //로그인 페이지에서 유저가 있는지 조회
       try {
         let res = await axios.post('/api/login', { userId, userPw });
-        if (res.data.success) {
-          alert('로그인 성공!');
+        alert(res.data.accessToken);
+        // 로컬스토리지에 저장
+        localStorage.setItem('accessToken', res.data.accessToken);
+        //전역상태변수(App.js에있는 accessToken)에 저장
+        setAccessToken(res.data.accessToken);
 
-          // 로그인 성공 시 홈페이지로 이동
-          window.location.href = '/';
-        } else {
-          alert('로그인 실패: ' + res.data.error);
-        }
+        window.location.href = '/';
       } catch (err) {
-        console.error(err);
-        // 에러 처리 로직...
+        console.log(err);
+        if (err.response.status === 404) {
+          alert('아이디 또는 비밀번호를 확인해주세요');
+        }
+
       }
     }
   };

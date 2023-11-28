@@ -244,6 +244,7 @@ const JoinPage = () => {
             <JoinNameInput
               onChange={userNameInputHandler}
               type="text"
+              name='userid'
               placeholder="홍길동"
               autoComplete="new-password"
             />

@@ -41,6 +41,7 @@ const pool = mysql.createPool({
 });
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -82,6 +83,43 @@ app.get('/api/all', async (req, res) => {
 //   return res.send('성공입니다');
 // });
 
+
+
+// 로그인 
+app.post('/api/login', async (req, res) => {
+  const { userId, userPw } = req.body;
+
+  try {
+    let sql = `SELECT user_id, user_password FROM tbl_user WHERE user_id = ?`;
+
+    const [rows, fields] = await pool.query(sql, [userId]);
+
+    console.log('rows:', rows);
+console.log('fields:', fields);
+    if (rows.length === 0) {
+      res.status(401).json({ error: '사용자를 찾을 수 없습니다.' });
+      return;
+    }
+
+    if (!bcrypt.compareSync(userPw, rows[0].user_password)) {
+      res.status(401).json({ error: '비밀번호가 일치하지 않습니다.' });
+      return;
+    }
+
+    const accessToken = jwt.sign({ userId: rows[0].userid }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    console.log(accessToken);
+    res.json({ accessToken });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: '서버에서 오류가 발생했습니다.' });
+  }
+});
+
+
+
 app.get('/api/jsonwebtokentest', (req, res) => {
   let myToken = jwt.sign({ userId: 'kimj' }, 'tokenpw', {
     expiresIn: '0.1s',
@@ -97,51 +135,6 @@ app.get('/api/jsonwebtokentest', (req, res) => {
   console.log(verify);
 
   res.json('응답끝');
-});
-
-// 로그인 
-app.post('/api/login', async (req, res) => {
-  const { userId, userPw } = req.body;
-
-  // mysql에서 tbl_user 테이블 모든 행,컬럼 조회
-  try {
-    let sql = `SELECT user_id, user_password FROM tbl_user WHERE user_id = ?`;
-
-    const [rows] = await pool.query(sql, [userId]);
-
-    console.log(rows);
-    if (rows.length === 0 || rows[0].user_password !== userPw) {
-      // 사용자가 존재하지 않거나 비밀번호가 일치하지 않을 때
-      res.status(404).json('로그인 실패!');
-      return;
-    }
-
-     // 사용자가 로그인할때 입력한 일반 비밀번호랑, 암호화되어 저장된 비밀번호랑
-    // 같은지 검사
-    // 일반비밀번호: password
-    // 암호화된 비밀번호 : rows[0].pw
-    if (!bcrypt.compareSync(userPW, rows[0].pw)) {
-      // 이메일은 맞췄지만 비밀번호는 틀렸을때
-      res.status(404).json('로그인 실패');
-      return;
-    }
-    // 로그인이 성공 했다면
-    // jwt 토큰 만들기
-    // payload에는 {email:'로그인한사람이메일'}
-    // 1시간짜리 유효한 토큰으로 만들기
-    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    console.log(accessToken);
-    // 로그인이 성공 했다면
-    // 여기에서 추가적인 로직을 수행하거나 필요한 데이터를 응답으로 보낼 수 있습니다.
-
-    res.json({ accessToken });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json('mysql에서 오류 발생' );
-  }
 });
 
 // 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
@@ -160,11 +153,28 @@ app.get('/api/loggedInEmail', (req, res) => {
     let result = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(result);
 
-    res.send(result.email);
+    res.send(result.userId);
   } catch (err) {
     console.log(err);
     res.status(403).json('오류발생!');
   }
+});
+
+app.get('/api/jsonwebtokentest', (req, res) => {
+  let myToken = jwt.sign({ email: 'abc@naver.com' }, 'tokenpw', {
+    expiresIn: '0.1s',
+  });
+
+  console.log(myToken);
+
+  // let decoded = jwt.decode(myToken );
+  // console.log(decoded);
+
+  let verify = jwt.verify(myToken, 'tokenpw');
+
+  console.log(verify);
+
+  res.json('응답끝');
 });
 
 //회원가입후 유저조회
@@ -199,24 +209,20 @@ app.post('/api/joins', async (req, res) => {
     const { username, userid, password, phone } = req.body;
     const enPw = bcrypt.hashSync(password, 10);
 
-    pool.query(sql, [username, userid, enPw, phone], (err, result, fields) => {
-      if (err) {
-        if (err.errno === 1406) {
-          res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
-        } else if (err.errno === 1062) {
-          res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
-        } else {
-          res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
-        }
-      } else {
-        console.log('result:', result);
-        console.log('fields:', fields);
-        res.json('성공이야~');
-      }
-    });
+    const [result, fields] = await pool.execute(sql, [username, userid, enPw, phone]);
+
+    console.log('result:', result);
+    console.log('fields:', fields);
+
+    res.json('성공이야~');
   } catch (err) {
-    console.error('에러 발생:', err);
-    res.status(500).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
+    if (err.errno === 1406) {
+      res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
+    } else if (err.errno === 1062) {
+      res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
+    } else {
+      res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
+    }
   }
 });
 
