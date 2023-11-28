@@ -99,7 +99,7 @@ app.get('/api/jsonwebtokentest', (req, res) => {
   res.json('응답끝');
 });
 
-// 로그인 API
+// 로그인 
 app.post('/api/login', async (req, res) => {
   const { userId, userPw } = req.body;
 
@@ -112,17 +112,35 @@ app.post('/api/login', async (req, res) => {
     console.log(rows);
     if (rows.length === 0 || rows[0].user_password !== userPw) {
       // 사용자가 존재하지 않거나 비밀번호가 일치하지 않을 때
-      res.status(404).json({ error: '로그인 실패!' });
+      res.status(404).json('로그인 실패!');
       return;
     }
 
+     // 사용자가 로그인할때 입력한 일반 비밀번호랑, 암호화되어 저장된 비밀번호랑
+    // 같은지 검사
+    // 일반비밀번호: password
+    // 암호화된 비밀번호 : rows[0].pw
+    if (!bcrypt.compareSync(userPW, rows[0].pw)) {
+      // 이메일은 맞췄지만 비밀번호는 틀렸을때
+      res.status(404).json('로그인 실패');
+      return;
+    }
+    // 로그인이 성공 했다면
+    // jwt 토큰 만들기
+    // payload에는 {email:'로그인한사람이메일'}
+    // 1시간짜리 유효한 토큰으로 만들기
+    const accessToken = jwt.sign({ userId: rows[0].userId }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    console.log(accessToken);
     // 로그인이 성공 했다면
     // 여기에서 추가적인 로직을 수행하거나 필요한 데이터를 응답으로 보낼 수 있습니다.
 
-    res.json({ success: true, message: '로그인 성공!' });
+    res.json({ accessToken });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'mysql에서 오류 발생' });
+    console.log(err);
+    res.status(500).json('mysql에서 오류 발생' );
   }
 });
 
@@ -149,7 +167,8 @@ app.get('/api/loggedInEmail', (req, res) => {
   }
 });
 
-app.get('/api/joins/:userid', async (req, res) => {
+//회원가입후 유저조회
+app.get('/api/joins/:user_id', async (req, res) => {
   // console.log(req.params);
   const userid = req.params.userid;
   let sql = `
@@ -166,32 +185,38 @@ app.get('/api/joins/:userid', async (req, res) => {
   }
 });
 
+//회원가입
 app.post('/api/joins', async (req, res) => {
-  console.log(req.body);
-  const sql = `INSERT INTO tbl_user 
-  (user_id, user_password, user_name, user_phone)
-  values (?, ?, ?, ?)
-   `;
-  let { username, userid, password, phone } = req.body;
-
-  let enPw = bcrypt.hashSync(password, 10);
-
   try {
-    let [result, fields] = pool.query(sql, [username, userid, enPw, phone]);
-    console.log('result:', result);
-    console.log('fields:', fields);
-    res.json('성공이야~');
+    console.log(req.body);
+
+    const sql = `
+      INSERT INTO tbl_user 
+      (user_name, user_id, user_password, user_phone)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    const { username, userid, password, phone } = req.body;
+    const enPw = bcrypt.hashSync(password, 10);
+
+    pool.query(sql, [username, userid, enPw, phone], (err, result, fields) => {
+      if (err) {
+        if (err.errno === 1406) {
+          res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
+        } else if (err.errno === 1062) {
+          res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
+        } else {
+          res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
+        }
+      } else {
+        console.log('result:', result);
+        console.log('fields:', fields);
+        res.json('성공이야~');
+      }
+    });
   } catch (err) {
-    if (err.errno === 1406) {
-      // 아이디가 컬럼의 최대 허용 용량을 벗어났다 1406
-      res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
-    } else if (err.errno === 1062) {
-      // 아이디가 중복되었다 1062
-      res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
-    } else {
-      // 그외
-      res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
-    }
+    console.error('에러 발생:', err);
+    res.status(500).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
   }
 });
 

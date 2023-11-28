@@ -28,7 +28,6 @@ import {
   SearchInput,
 } from '../styles/header.styles';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 const HeaderPages = () => {
   const navigate = useNavigate();
@@ -53,17 +52,6 @@ const HeaderPages = () => {
     navigate(path, { replace: true });
   };
 
-  //로그인이 확인되면 로그아웃으로 글씨 변경
-  const LoginButton = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleButtonClick = () => {
-      // 로그인 상태를 토글합니다.
-      setIsLoggedIn(!isLoggedIn);
-
-      navigate('/login');
-    };
-  };
   return (
     <>
       <Body>
@@ -95,7 +83,7 @@ const HeaderPages = () => {
                   }}
                 >
                   <LoginButton onClick={() => onButtonClick('/login')} type="button">
-                    {isLoggedIn ? '로그아웃' : '로그인'}
+                    로그인
                   </LoginButton>
                 </LoginContainer>
                 <LoginJoinContainer

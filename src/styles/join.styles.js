@@ -41,7 +41,7 @@ export const Leftaside = styled.aside`
   padding: 40px 38px 0px 32px;
 `;
 
-export const JoinSectionContainer = styled.div`
+export const JoinSectionContainer = styled.form`
   min-height: 100%;
   margin-left: 320px;
   padding: 0px 20px 210px;
@@ -235,5 +235,5 @@ export const Footeer = styled.footer`
 export const ErrMsg = styled.p`
   color: red;
   font-size: var(--font-xs);
-  padding-left: 10px`
-  ;
+  padding-left: 10px;
+`;
