@@ -88,7 +88,6 @@ const LoginPage = () => {
       //로그인 페이지에서 유저가 있는지 조회
       try {
         let res = await axios.post('/api/login', { userId, userPw });
-        alert(res.data.accessToken);
         // 로컬스토리지에 저장
         localStorage.setItem('accessToken', res.data.accessToken);
         //전역상태변수(App.js에있는 accessToken)에 저장
