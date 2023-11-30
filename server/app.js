@@ -83,9 +83,7 @@ app.get('/api/all', async (req, res) => {
 //   return res.send('성공입니다');
 // });
 
-
-
-// 로그인 
+// 로그인
 app.post('/api/login', async (req, res) => {
   const { userId, userPw } = req.body;
 
@@ -95,7 +93,6 @@ app.post('/api/login', async (req, res) => {
     const [rows, fields] = await pool.query(sql, [userId]);
 
     console.log('rows:', rows);
-console.log('fields:', fields);
     if (rows.length === 0) {
       res.status(401).json({ error: '사용자를 찾을 수 없습니다.' });
       return;
@@ -110,15 +107,14 @@ console.log('fields:', fields);
       expiresIn: '1h',
     });
 
-    console.log(accessToken);
+    //토큰값 출력
+    //console.log(accessToken);
     res.json({ accessToken });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: '서버에서 오류가 발생했습니다.' });
   }
 });
-
-
 
 app.get('/api/jsonwebtokentest', (req, res) => {
   let myToken = jwt.sign({ userId: 'kimj' }, 'tokenpw', {
