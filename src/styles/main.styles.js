@@ -117,6 +117,7 @@ export const ListWrap = styled.div`
   display: flex;
   list-style: none;
   transition-property: transform;
+  transition-duration: 0.5s;
 `;
 
 export const ListWrapspan = styled.span`

@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Margin } from '@mui/icons-material';
+import { useState } from 'react';
 
 const { Mainheader } = require('../styles/header.styles');
 const {
@@ -40,6 +41,8 @@ const {
 } = require('../styles/main.styles');
 
 const MainPage = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -49,6 +52,29 @@ const MainPage = () => {
     autoplay: true,
     vertical: false,
     arrow: true,
+  };
+
+  const handleNextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+  };
+
+  const handlePrevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
+  };
+
+  const totalSlides = 2;  // 총 슬라이드 개수
+  const slideWidth = 265;  // 각 슬라이드의 너비
+
+  // 현재 슬라이드가 첫 번째 슬라이드일 때, 이전 버튼을 클릭하면 마지막 슬라이드로 이동
+  const handlePrevInfinite = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
+    );
+  };
+
+  // 현재 슬라이드가 마지막 슬라이드일 때, 다음 버튼을 클릭하면 첫 번째 슬라이드로 이동
+  const handleNextInfinite = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
   return (
@@ -66,7 +92,7 @@ const MainPage = () => {
               <ListHead1>
                 <ListCon>
                   <ListIncon>
-                    <ListWrap>
+                    <ListWrap style={{ transform: `translateX(-${currentIndex * slideWidth}px)` }}>
                       <JapanOsaka1>
                         <Osakaimg src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Neon_signs_at_night%2C_24th_October_2014.JPG/310px-Neon_signs_at_night%2C_24th_October_2014.JPG" />
                         <OsakaTravel></OsakaTravel>
@@ -128,7 +154,14 @@ const MainPage = () => {
                   </ListIncon>
                   {/* 오른쪽버튼 */}
 
-                  <NextCarousel type="button" tabIndex="0" role="button" aria-disabled="false">
+                  <NextCarousel
+                    type="button"
+                    tabIndex="0"
+                    role="button"
+                    aria-disabled="false"
+                    onClick={handlePrevInfinite}
+                  >
+                    
                     <NextnextImg src="/images/next.png"></NextnextImg>
                   </NextCarousel>
                 </ListCon>
@@ -136,7 +169,7 @@ const MainPage = () => {
             </MainheaderCon>
           </Mainheader>
           {/* 메인2번째 슬라이드 */}
-          <Slider style={{width:'1060px', margin:'0 auto 44px'}} {...settings} >
+          <Slider style={{ width: '1060px', margin: '0 auto 44px' }} {...settings}>
             <SlideBannerA>
               <SlideBannerImg src="https://d2ur7st6jjikze.cloudfront.net/cms/4078_original_1692161584.jpg?1692161584" />
             </SlideBannerA>
@@ -162,7 +195,7 @@ const MainPage = () => {
               <SlideBannerImg src="/images/tokyotower.jpg" />
             </SlideBannerA>
           </Slider>
-          
+
           {/* 게시판 */}
           <NoticePage></NoticePage>
           {/* //게시판 */}
