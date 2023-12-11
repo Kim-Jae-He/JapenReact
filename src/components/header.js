@@ -95,7 +95,7 @@ const HeaderPages = (props) => {
               <HeaderSmallContainer>
                 <LoginContainer
                   onMouseOver={(e) => {
-                    LoginJoinCon(e, 'rgb(222, 226, 230)');
+                    LoginJoinCon(e, 'rgb(222, 226, 231)');
                   }}
                   onMouseOut={(e) => {
                     LoginJoinCon(e, 'white');
