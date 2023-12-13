@@ -36,7 +36,7 @@ import {
   Username,
 } from '../styles/mypage.styles';
 
-const MyPage = () => {
+const MyPageCom = () => {
   return (
     <>
       <Traveler>
@@ -123,4 +123,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default MyPageCom;

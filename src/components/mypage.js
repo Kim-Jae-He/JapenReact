@@ -1,8 +1,8 @@
 import FooterPage from './footer';
 import HeaderPages from './header';
-import MyPage from '../pages/mypage';
+import MyPage from '../pages/mypageCom';
 
-const MypageCom = () => {
+const Mypage = () => {
   return (
     <>
       <HeaderPages></HeaderPages>
@@ -12,4 +12,4 @@ const MypageCom = () => {
   );
 };
 
-export default MypageCom;
+export default Mypage;
