@@ -7,11 +7,6 @@ import styled from '@emotion/styled';
   box-sizing: border-box;
 } */
 
-export const Main = styled.div`
-  display: block;
-  position: relative;
-`;
-
 // a {
 //   text-decoration: none;
 //   outline: none;
@@ -22,6 +17,8 @@ export const Main = styled.div`
 //   background-color: transparent;
 // }
 export const Traveler = styled.main`
+  display: block;
+  position: relative;
   background-color: #fff;
   font-size: 0;
 `;
@@ -88,6 +85,7 @@ export const LeftIcon = styled.div`
   border-width: 0;
   vertical-align: middle;
   border: 0;
+  height: 11px;
 `;
 
 export const LeftProcon = styled.div`
@@ -154,6 +152,7 @@ export const ProimgImg = styled.img`
 
 export const RightTopForm = styled.form`
   display: inline-block;
+  width: 98px;
 `;
 
 export const Text = styled.div`
@@ -199,13 +198,13 @@ export const InputWrap = styled.input`
   color: #343a40;
   box-shadow: none;
   display: block;
-  width: 100%;
+  width: 75%;
   line-height: 1.5;
   background-image: none;
 `;
 
-export const RightFormBtn = styled.button`
-  border-top: 1px solid #dee2e6;
+export const RightFormBtn = styled.div`
+  border-top: 1px solid #black;
   display: block;
   padding-top: 24px;
   margin-top: 24px;
@@ -221,8 +220,16 @@ export const RightFormBtnCon = styled.div`
 export const FormBtn = styled.div`
   display: inline-block;
   float: left;
-  padding: 0 4px;
+  padding: 0 10px;
   width: 50%;
+  color: #343a40;
+  letter-spacing: -0.2px;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  vertical-align: baseline;
+  border: 0;
 `;
 
 export const BtnExit = styled.button`
@@ -255,7 +262,7 @@ export const BtnCheck = styled.button`
   cursor: pointer;
   display: block;
   font-weight: 700;
-  padding: 0;
+  padding: 4px;
   text-align: center;
 `;
 
