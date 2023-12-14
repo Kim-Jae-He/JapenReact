@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import { ImgLogo } from '../styles/header.styles';
 import {
   CompleteButtonCheck,
@@ -168,11 +168,7 @@ const JoinPage = () => {
 
     //submit
     if (check) {
-
       console.log(e.target);
-
-      // // 로그인 성공 시 홈페이지로 이동
-      // window.location.href = '/';
 
       try {
         let res = await axios.post('/api/joins', {
@@ -181,42 +177,20 @@ const JoinPage = () => {
           user_password: password,
           user_phone: phone,
         });
+        // // 로그인 성공 시 홈페이지로 이동
+        window.location.href = '/';
+
         console.log(res);
-        setIsOpen(true);
       } catch (err) {
-        console.log(err);
+        console.log(err.response); // 에러 응답을 콘솔에 출력
         if (err.response.data.errCode === 1) {
-          // alert('아이디가 너무 깁니다');
           alert('입력 항목에 너무 긴 항목이 있습니다');
         } else if (err.response.data.errCode === 2) {
           setUserIdErrMsg('중복된 아이디 입니다');
         } else {
-          alert('서버가 문제가 발생했습니다 잠시 뒤에 다시 시도해 주세요');
+          alert('서버에 문제가 발생했습니다 잠시 뒤에 다시 시도해 주세요');
         }
       }
-
-      // axios.post('/api/users', {
-      //   email ,
-      //   password,
-      //   question,
-      //   answer
-      // }).then((res )=>{
-      //   console.log(res);
-      //   // 회원가입이 성공했다면 실행시킬 요소들
-      //   // alert('회원가입 성공했습니다!');
-      //   setIsOpen(true);
-      // }).catch((err)=>{
-      //   console.log(err);
-      //   // 회원가입 실패했다했다면 실행시킬 코드
-      //   if(err.response.data.errCode === 1){
-      //     // alert('아이디가 너무 깁니다');
-      //     setEmailErrMsg('아이디가 너무 깁니다');
-      //   }else if(err.response.data.errCode === 2){
-      //     setEmailErrMsg('중복된 아이디 입니다');
-      //   }else{
-      //     alert('서버가 문제가 발생했습니다 잠시 뒤에 다시 시도해 주세요');
-      //   }
-      // });
 
       console.log('qwer');
     }
@@ -242,7 +216,7 @@ const JoinPage = () => {
           </Sidebarh1>
         </Sidebar>
         {/* 오른쪽 사이드바 */}
-        <JoinSectionContainer onSubmit={submitHandler} method="POST" action="/api/users">
+        <JoinSectionContainer onSubmit={submitHandler} method="POST" action="/api/joins">
           <Joinlayout>
             <Jointitlecontainer>
               <JoinTitle1>계정만들기</JoinTitle1>
@@ -292,33 +266,10 @@ const JoinPage = () => {
           <div>
             <CompleteButtonCheck>완료</CompleteButtonCheck>
           </div>
-          <ModalWrap isOpen={isOpen}>
-            <Modal>
-              <h1>성공!</h1>
-              <p>확인을 누르시면 로그인 페이지로 이동합니다</p>
-              <button onClick={onModalClick}>확인</button>
-            </Modal>
-          </ModalWrap>
         </JoinSectionContainer>
       </div>
     </>
   );
 };
-
-const ModalWrap = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-
-  background-color: rgba(0, 0, 0, 0.8);
-
-  display: ${(props) => {
-    return props.isOpen ? 'flex' : 'none';
-  }};
-  justify-content: center;
-  align-items: center;
-`;
 
 export default JoinPage;

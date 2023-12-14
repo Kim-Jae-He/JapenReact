@@ -27,12 +27,20 @@ import {
   SearchContainerInputImgValue,
   SearchInput,
 } from '../styles/header.styles';
-import React, { useState } from 'react';
+import { UserContext } from '../App';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HeaderPages = (props) => {
   const navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState(''); 
+  const [password, setPassword] = useState(''); 
+  const { accessToken, setAccessToken } = useContext(UserContext);
+  const [loggedInUser, setLoggedInUser] = useState({
+    user_id: '로그인후 이용해주세요',
+  });
 
   //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
   const HeaderColorOver = (e) => {
@@ -48,22 +56,73 @@ const HeaderPages = (props) => {
   const LoginJoinCon = (e, color) => {
     e.target.style.backgroundColor = color;
   };
+  /////////////////////////////////////////////////////////////////
 
   // 홈페이지,로그인,회원가입 클릭시 경로이동
   const onButtonClick = (path) => {
     navigate(path, { replace: true });
   };
 
-  // 로그인 버튼 클릭 시 호출되는 함수
-  const handleLogin = () => {
-    // 로그인 상태를 변경
-    setLoggedIn(true);
+
+  // 사용자가 로그인되어 있는지 확인하고 사용자 데이터를 가져오기
+  useEffect(() => {
+    const checkLoggedInUser = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (!accessToken) {
+        // 토큰이 없으면 사용자가 로그인되어 있지 않음
+        return;
+      }
+
+      try {
+        const res = await axios.get('/api/loggedInEmail', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        // 아이디를 사용하여 추가 사용자 데이터를 가져옴
+        const res2 = await axios.get(`/api/login/${res.data}`);
+        setLoggedInUser(res2.data);
+      } catch (err) {
+        // 오류 처리, 예를 들어 토큰 만료 또는 사용자가 로그인되어 있지 않음
+        console.log(err);
+        localStorage.removeItem('accessToken');
+        setLoggedInUser(null);
+        navigate('/login', { replace: true });
+      }
+    };
+
+    checkLoggedInUser();
+  }, [navigate]);
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    // 로컬 스토리지에서 토큰을 제거하고 사용자를 null로 설정
+    localStorage.removeItem('accessToken');
+    setLoggedInUser(null);
+    navigate('/', { replace: true });
   };
 
-  // 로그아웃 버튼 클릭 시 호출되는 함수
-  const handleLogout = () => {
-    // 로그인 상태를 변경
-    setLoggedIn(false);
+  // 로그인 핸들러 (예시)
+  const handleLogin = async () => {
+    try {
+      // 로그인 로직을 수행하고 토큰을 얻음
+      const res = await axios.post('/api/login', { username, password });
+      const accessToken = res.data.accessToken;
+
+      // 로컬 스토리지에 토큰을 저장
+      localStorage.setItem('accessToken', accessToken);
+
+      // 사용자 데이터를 가져와 설정
+      const res2 = await axios.get(`/api/users/${username}`);
+      setLoggedInUser(res2.data);
+
+      // 홈 페이지 또는 다른 경로로 이동
+      navigate('/');
+    } catch (err) {
+      // 로그인 오류 처리
+      console.error(err);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -96,7 +155,18 @@ const HeaderPages = (props) => {
                     LoginJoinCon(e, 'white');
                   }}
                 >
-                  <LoginButton onClick={() => onButtonClick('/login')} type="button">로그인</LoginButton>
+                  {isLoggedIn ? (
+                    // 로그인 상태일 때 로그아웃 버튼 표시
+                    <LoginButton onClick={handleLogout}>로그아웃</LoginButton>
+                  ) : (
+                    // 로그아웃 상태일 때 로그인 버튼 표시
+                    <LoginButton onClick={() => onButtonClick('/login')} type="button">
+                      로그인
+                    </LoginButton>
+                  )}
+
+                  {/* <LoginButton onClick={() => onButtonClick('/login')} type="button">로그인</LoginButton> */}
+                  {/* <LoginButton onClick={handleLogout}>로그아웃</LoginButton> */}
                 </LoginContainer>
                 <LoginJoinContainer
                   onMouseOver={(e) => {
