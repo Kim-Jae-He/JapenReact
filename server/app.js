@@ -92,7 +92,7 @@ app.post('/api/login', async (req, res) => {
 
     const [rows, fields] = await pool.query(sql, [userId]);
 
-    console.log('rows:', rows);
+    //console.log('rows:', rows);
     if (rows.length === 0) {
       res.status(401).json({ error: '사용자를 찾을 수 없습니다.' });
       return;
@@ -183,7 +183,7 @@ app.get('/api/joins/:user_id', async (req, res) => {
     WHERE user_id = ?
   `;
   try {
-    let [rows, fields] = await pool.query(sql, [userid]);
+    const [rows, fields] = await pool.query(sql, [userid]);
 
     res.json(rows[0]);
   } catch (err) {
@@ -194,6 +194,8 @@ app.get('/api/joins/:user_id', async (req, res) => {
 //회원가입
 app.post('/api/joins', async (req, res) => {
   try {
+
+    
     console.log(req.body);
 
     const sql = `
@@ -203,6 +205,9 @@ app.post('/api/joins', async (req, res) => {
     `;
 
     const { username, userid, password, phone } = req.body;
+
+
+
     const enPw = bcrypt.hashSync(password, 10);
 
     const [result, fields] = await pool.execute(sql, [username, userid, enPw, phone]);
@@ -212,15 +217,16 @@ app.post('/api/joins', async (req, res) => {
 
     res.json('성공이야~');
   } catch (err) {
-    if (err.errno === 1406) {
-      res.status(400).json({ errCode: 1, errMsg: '아이디가 너무 김' });
-    } else if (err.errno === 1062) {
-      res.status(400).json({ errCode: 2, errMsg: '아이디가 중복됨' });
+    if (err.code === 'ER_DATA_TOO_LONG') {
+      res.status(400).json({ errCode: 1, errMsg: '데이터가 너무 깁니다.' });
+    } else if (err.code === 'ER_DUP_ENTRY') {
+      res.status(400).json({ errCode: 2, errMsg: '이미 존재하는 아이디입니다.' });
     } else {
-      res.status(400).json({ errCode: 3, errMsg: '서버쪽에서 오류 발생함' });
+      res.status(500).json({ errCode: 3, errMsg: '서버 쪽에서 오류 발생함', err });
     }
   }
 });
+
 
 app.listen(port, () => {
   console.log(`express 서버 실행됨! 포트:${port}`);

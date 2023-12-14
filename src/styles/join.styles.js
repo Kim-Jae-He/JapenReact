@@ -237,3 +237,16 @@ export const ErrMsg = styled.p`
   font-size: var(--font-xs);
   padding-left: 10px;
 `;
+
+
+const Modal = styled.div`
+  width: 450px;
+  background-color: white;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  padding: 30px;
+`;

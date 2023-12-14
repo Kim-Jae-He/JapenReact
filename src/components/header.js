@@ -34,8 +34,6 @@ const HeaderPages = (props) => {
   const navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-
-
   //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
   const HeaderColorOver = (e) => {
     //텍스트에 마우스가 올라갈때
@@ -56,9 +54,7 @@ const HeaderPages = (props) => {
     navigate(path, { replace: true });
   };
 
-
-  
-   // 로그인 버튼 클릭 시 호출되는 함수
+  // 로그인 버튼 클릭 시 호출되는 함수
   const handleLogin = () => {
     // 로그인 상태를 변경
     setLoggedIn(true);
@@ -69,7 +65,6 @@ const HeaderPages = (props) => {
     // 로그인 상태를 변경
     setLoggedIn(false);
   };
-  
 
   return (
     <>
@@ -101,13 +96,7 @@ const HeaderPages = (props) => {
                     LoginJoinCon(e, 'white');
                   }}
                 >
-                 {isLoggedIn ?(
-                  //로그인 상태일떄
-                  <LoginButton onClick={handleLogout} type="button">로그아웃</LoginButton>
-                    ) : (
-                      //로그아웃 상태일때
-                      <LoginButton onClick={handleLogin}>로그인</LoginButton>
-                    )}
+                  <LoginButton onClick={() => onButtonClick('/login')} type="button">로그인</LoginButton>
                 </LoginContainer>
                 <LoginJoinContainer
                   onMouseOver={(e) => {

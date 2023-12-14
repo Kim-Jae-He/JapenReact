@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import styled from "@emotion/styled";
 import { ImgLogo } from '../styles/header.styles';
 import {
   CompleteButtonCheck,
@@ -19,6 +20,7 @@ import {
 } from '../styles/join.styles';
 import { useState } from 'react';
 import axios from 'axios';
+import { Modal } from '@mui/material';
 
 const JoinPage = () => {
   //경로이동
@@ -36,7 +38,7 @@ const JoinPage = () => {
   const [passwordCheckErrMsg, setPasswordCheckErrMsg] = useState('');
   const [phoneErrMsg, setPhoneErrMsg] = useState('');
 
-  //모달창이 열려있는지 닫혀있는지 만들어줄 state함수
+  // 모달창이 열려있는지 닫혀있는지 만들어줄 state변수
   const [isOpen, setIsOpen] = useState(false);
 
   const userNameInputHandler = (e) => {
@@ -164,17 +166,23 @@ const JoinPage = () => {
       setPhoneErrMsg('');
     }
 
+    //submit
     if (check) {
-      alert('회원가입완료');
 
       console.log(e.target);
 
-      // 로그인 성공 시 홈페이지로 이동
-      window.location.href = '/';
+      // // 로그인 성공 시 홈페이지로 이동
+      // window.location.href = '/';
 
       try {
-        let res = await axios.post('/api/joins', { username, userid, password, phone });
+        let res = await axios.post('/api/joins', {
+          username,
+          userid,
+          user_password: password,
+          user_phone: phone,
+        });
         console.log(res);
+        setIsOpen(true);
       } catch (err) {
         console.log(err);
         if (err.response.data.errCode === 1) {
@@ -221,7 +229,7 @@ const JoinPage = () => {
 
   // 로그인 페이지로 이동,
   const onModalClick = () => {
-    navigate('/login', { replace: true });
+    navigate('/', { replace: true });
   };
 
   return (
@@ -234,7 +242,7 @@ const JoinPage = () => {
           </Sidebarh1>
         </Sidebar>
         {/* 오른쪽 사이드바 */}
-        <JoinSectionContainer onSubmit={submitHandler}>
+        <JoinSectionContainer onSubmit={submitHandler} method="POST" action="/api/users">
           <Joinlayout>
             <Jointitlecontainer>
               <JoinTitle1>계정만들기</JoinTitle1>
@@ -244,7 +252,7 @@ const JoinPage = () => {
             <JoinNameInput
               onChange={userNameInputHandler}
               type="text"
-              name='userid'
+              name="userid"
               placeholder="홍길동"
               autoComplete="new-password"
             />
@@ -262,7 +270,7 @@ const JoinPage = () => {
               onChange={passwordInputHandler}
               type="password"
               placeholder="비밀번호를 입력해 주세요"
-              name='pw'
+              name="pw"
             />
             <JoinNameDown>{passwordErrMsg}</JoinNameDown>
             <JoinPasswordcheck>비밀번호 확인</JoinPasswordcheck>
@@ -281,13 +289,36 @@ const JoinPage = () => {
             />
             <JoinNameDown>{phoneErrMsg}</JoinNameDown>
           </Joinlayout>
-          <div >
-            <CompleteButtonCheck to="/join">완료</CompleteButtonCheck>
-          </div >
+          <div>
+            <CompleteButtonCheck>완료</CompleteButtonCheck>
+          </div>
+          <ModalWrap isOpen={isOpen}>
+            <Modal>
+              <h1>성공!</h1>
+              <p>확인을 누르시면 로그인 페이지로 이동합니다</p>
+              <button onClick={onModalClick}>확인</button>
+            </Modal>
+          </ModalWrap>
         </JoinSectionContainer>
       </div>
     </>
   );
 };
+
+const ModalWrap = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  display: ${(props) => {
+    return props.isOpen ? 'flex' : 'none';
+  }};
+  justify-content: center;
+  align-items: center;
+`;
 
 export default JoinPage;
