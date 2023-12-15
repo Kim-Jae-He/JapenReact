@@ -34,13 +34,11 @@ import axios from 'axios';
 
 const HeaderPages = (props) => {
   const navigate = useNavigate();
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState(''); 
-  const [password, setPassword] = useState(''); 
-  const { accessToken, setAccessToken } = useContext(UserContext);
-  const [loggedInUser, setLoggedInUser] = useState({
-    user_id: '로그인후 이용해주세요',
-  });
+  const [accessToken, setAccessToken] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [username, setUsername] = useState(''); // username 상태 추가
+  const [password, setPassword] = useState(''); // password 상태 추가
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // isLoggedIn 상태 추가
 
   //헤더부분 카테고리 마우스올리면 텍스트 색상 변경
   const HeaderColorOver = (e) => {
@@ -56,6 +54,7 @@ const HeaderPages = (props) => {
   const LoginJoinCon = (e, color) => {
     e.target.style.backgroundColor = color;
   };
+
   /////////////////////////////////////////////////////////////////
 
   // 홈페이지,로그인,회원가입 클릭시 경로이동
@@ -67,26 +66,28 @@ const HeaderPages = (props) => {
   // 사용자가 로그인되어 있는지 확인하고 사용자 데이터를 가져오기
   useEffect(() => {
     const checkLoggedInUser = async () => {
-      const accessToken = localStorage.getItem('accessToken');
+      const storedAccessToken = localStorage.getItem('accessToken');
 
-      if (!accessToken) {
+      if (!storedAccessToken) {
         // 토큰이 없으면 사용자가 로그인되어 있지 않음
         return;
       }
 
       try {
-        const res = await axios.get('/api/loggedInEmail', {
-          headers: { Authorization: `Bearer ${accessToken}` },
+        const res = await axios.get('/api/loggedInId', {
+          headers: { Authorization: `Bearer ${storedAccessToken}` },
         });
 
-        // 아이디를 사용하여 추가 사용자 데이터를 가져옴
+        // ID를 사용하여 추가 사용자 데이터 가져오기
         const res2 = await axios.get(`/api/login/${res.data}`);
         setLoggedInUser(res2.data);
+        setAccessToken(storedAccessToken);
       } catch (err) {
         // 오류 처리, 예를 들어 토큰 만료 또는 사용자가 로그인되어 있지 않음
         console.log(err);
         localStorage.removeItem('accessToken');
         setLoggedInUser(null);
+        setAccessToken(null);
         navigate('/login', { replace: true });
       }
     };
@@ -96,34 +97,42 @@ const HeaderPages = (props) => {
 
   // 로그아웃 핸들러
   const handleLogout = () => {
-    // 로컬 스토리지에서 토큰을 제거하고 사용자를 null로 설정
+    // 로컬 스토리지에서 토큰 제거하고 사용자를 null로 설정
     localStorage.removeItem('accessToken');
     setLoggedInUser(null);
+    setAccessToken(null);
     navigate('/', { replace: true });
   };
 
-  // 로그인 핸들러 (예시)
+  // 로그인 핸들러
   const handleLogin = async () => {
     try {
-      // 로그인 로직을 수행하고 토큰을 얻음
       const res = await axios.post('/api/login', { username, password });
-      const accessToken = res.data.accessToken;
-
-      // 로컬 스토리지에 토큰을 저장
-      localStorage.setItem('accessToken', accessToken);
-
-      // 사용자 데이터를 가져와 설정
+      const newAccessToken = res.data.accessToken;
+  
+      console.log('Received Access Token:', newAccessToken);
+  
+      localStorage.setItem('accessToken', newAccessToken);
+  
       const res2 = await axios.get(`/api/users/${username}`);
-      setLoggedInUser(res2.data);
-
-      // 홈 페이지 또는 다른 경로로 이동
+      const userData = res2.data;
+  
+      console.log('Received User Data:', userData);
+  
+      setLoggedInUser(userData);
+      setAccessToken(newAccessToken);
+      setIsLoggedIn(true); // 로그인 상태를 표시하는 상태 업데이트
       navigate('/');
     } catch (err) {
       // 로그인 오류 처리
-      console.error(err);
+      console.error('Login Error:', err);
+      console.log('Error Response:', err.response); // 추가된 부분
+  
       alert('로그인에 실패했습니다. 다시 시도해주세요.');
     }
   };
+
+
 
   return (
     <>

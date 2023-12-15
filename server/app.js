@@ -133,8 +133,8 @@ app.get('/api/jsonwebtokentest', (req, res) => {
   res.json('응답끝');
 });
 
-// 토큰을 전달받아서 로그인한 사람의 email 주소를 되돌려주는 api
-app.get('/api/loggedInEmail', (req, res) => {
+// 토큰을 전달받아서 로그인한 사람의 id 주소를 되돌려주는 api
+app.get('/api/loggedInId', (req, res) => {
   // 리액트로부터 전달받은 토큰이 정상적인지 확인하고
   // 정상적이지 않으면 오류로 응답
   // 정상적이면 email주소로 응답

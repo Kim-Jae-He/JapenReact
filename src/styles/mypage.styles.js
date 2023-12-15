@@ -17,8 +17,23 @@ import styled from '@emotion/styled';
 //   background-color: transparent;
 // }
 export const Traveler = styled.main`
-  display: block;
-  position: relative;
+  *,
+  ::before,
+  ::after {
+    font-family: 'SF Pro KR', 'SF Pro Display', 'SF Pro Icons', -apple-system, BlinkMacSystemFont,
+      'Noto Sans KR', 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    background-color: transparent;
+  }
+
   background-color: #fff;
   font-size: 0;
 `;
@@ -43,6 +58,13 @@ export const Leftbar = styled.div`
   float: left;
   margin-right: 18px;
   width: 250px;
+  letter-spacing: -0.2px;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  vertical-align: baseline;
+  border: 0;
 `;
 
 export const Rightbar = styled.div`
@@ -88,6 +110,17 @@ export const LeftIcon = styled.div`
   height: 11px;
 `;
 
+export const LeftBar1 = styled.div`
+  color: #343a40;
+  letter-spacing: -0.2px;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  vertical-align: baseline;
+  border: 0;
+`;
+
 export const LeftProcon = styled.div`
   background-color: #fff;
   border-radius: 4px;
@@ -119,8 +152,22 @@ export const HeartCount = styled.div`
   width: 60%;
 `;
 
+export const LoveA = styled.a`
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  background-color: transparent;
+`;
+
 export const Love = styled.img`
   vertical-align: text-bottom;
+  border-width: 0;
+  border: 0;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  text-align: center;
 `;
 
 export const Memberbox = styled.main`
@@ -159,6 +206,7 @@ export const Text = styled.div`
   font-size: 16px;
   font-weight: 500;
   margin-top: 15px;
+  padding-right: 88px;
 `;
 
 export const Membercon = styled.div`
@@ -201,6 +249,26 @@ export const InputWrap = styled.input`
   width: 75%;
   line-height: 1.5;
   background-image: none;
+`;
+
+export const InputWrapDiv = styled.div`
+  background-color: #fff;
+  font-weight: 500;
+  height: 40px;
+  margin-top: 0;
+  padding: 0 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #343a40;
+  box-shadow: none;
+  display: block;
+  width: 75%;
+  line-height: 1.5;
+  background-image: none;
+  line-height: 45px;
+  width: 100%;
+  display: inline-block;
+  padding-left: 122px;
 `;
 
 export const RightFormBtn = styled.div`
